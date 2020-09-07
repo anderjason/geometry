@@ -1,0 +1,31 @@
+{
+  "name": "@anderjason/geometry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:anderjason/geometry.git"
+  },
+  "author": "Jason Anderson",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf dist && rm -rf test",
+    "test": "tsc -p tsconfig.test.json && node test/index.test && rm -rf test"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "@anderjason/tests": "^1.0.0",
+    "@anderjason/util": "^1.0.0",
+    "typescript": "^4.0.2"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/anderjason/geometry/issues"
+  },
+  "homepage": "https://github.com/anderjason/geometry#readme"
+}
