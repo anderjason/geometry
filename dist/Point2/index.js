@@ -51,6 +51,9 @@ class Point2 {
         const diff = this.withSubtractedVector(Vector2_1.Vector2.givenPoint(other));
         return Math.sqrt(Math.pow(diff.x, 2) + Math.pow(diff.y, 2));
     }
+    toVector(other) {
+        return Vector2_1.Vector2.givenXY(other.x - this.x, other.y - this.y);
+    }
     withWeightedAverage(other, weight) {
         const t = weight.toNumber(1);
         const x = this.x + (other.x - this.x) * t;

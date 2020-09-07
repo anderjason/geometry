@@ -72,6 +72,10 @@ export class Point2 {
     return Math.sqrt(Math.pow(diff.x, 2) + Math.pow(diff.y, 2));
   }
 
+  toVector(other: Point2): Vector2 {
+    return Vector2.givenXY(other.x - this.x, other.y - this.y);
+  }
+
   withWeightedAverage(other: Point2, weight: Percent): Point2 {
     const t = weight.toNumber(1);
 
