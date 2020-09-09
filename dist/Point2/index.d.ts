@@ -16,7 +16,6 @@ export declare class Point2 {
     toDistance(other: Point2): number;
     toVector(other: Point2): Vector2;
     withWeightedAverage(other: Point2, weight: Percent): Point2;
-    withAngleDistance(angle: number, distance: number): Point2;
     withAddedVector(vector: Vector2): Point2;
     withSubtractedVector(vector: Vector2): Point2;
 }

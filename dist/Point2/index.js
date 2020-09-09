@@ -43,13 +43,8 @@ class Point2 {
     toClone() {
         return new Point2(this._x, this._y);
     }
-    // toAngle(other: Point2): number {
-    //   const diff = this.withSubtractedPoint(other);
-    //   return Math.atan2(diff.y, diff.x);
-    // }
     toDistance(other) {
-        const diff = this.withSubtractedVector(Vector2_1.Vector2.givenPoint(other));
-        return Math.sqrt(Math.pow(diff.x, 2) + Math.pow(diff.y, 2));
+        return this.toVector(other).toMagnitude();
     }
     toVector(other) {
         return Vector2_1.Vector2.givenXY(other.x - this.x, other.y - this.y);
@@ -60,13 +55,13 @@ class Point2 {
         const y = this.y + (other.y - this.y) * t;
         return new Point2(x, y);
     }
-    withAngleDistance(angle, distance) {
-        // Rotate the angle based on the browser coordinate system ([0,0] in the top left)
-        const angleRotated = angle + Math.PI / 2;
-        const x = this.x + Math.sin(angleRotated) * distance;
-        const y = this.y - Math.cos(angleRotated) * distance;
-        return new Point2(x, y);
-    }
+    // withAngleDistance(angle: number, distance: number): Point2 {
+    //   // Rotate the angle based on the browser coordinate system ([0,0] in the top left)
+    //   const angleRotated = angle + Math.PI / 2;
+    //   const x = this.x + Math.sin(angleRotated) * distance;
+    //   const y = this.y - Math.cos(angleRotated) * distance;
+    //   return new Point2(x, y);
+    // }
     withAddedVector(vector) {
         return new Point2(this.x + vector.x, this.y + vector.y);
     }

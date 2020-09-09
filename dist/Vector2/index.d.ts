@@ -1,8 +1,11 @@
 import { Percent } from "@anderjason/util";
 import { Point2 } from "../Point2";
+import { Rotation } from "../Rotation";
+export declare type RotationDirection = "clockwise" | "counterclockwise";
 export declare class Vector2 {
     static givenXY(x: number, y: number): Vector2;
     static givenPoint(point: Point2): Vector2;
+    static givenPoints(startPoint: Point2, endPoint: Point2): Vector2;
     static isEqual(a: Vector2, b: Vector2): boolean;
     protected _x: number;
     protected _y: number;
@@ -12,9 +15,19 @@ export declare class Vector2 {
     get isZero(): boolean;
     isEqual: (other: Vector2) => boolean;
     withMultipliedScalar(input: number): Vector2;
+    withDividedScalar(input: number): Vector2;
     withAddedVector(other: Vector2): Vector2;
     withSubtractedVector(other: Vector2): Vector2;
+    withMultipliedVector(other: Vector2): Vector2;
+    withDividedVector(other: Vector2): Vector2;
+    toPoint(): Point2;
     toDotProduct(other: Vector2): number;
-    toExteriorProduct(other: Vector2): number;
+    toCrossProduct(other: Vector2): number;
+    toMagnitude(): number;
+    toAngle(other: Vector2): Rotation;
+    withNormalizedMagnitude(): Vector2;
+    withReversedDirection(): Vector2;
+    withRotation(rotation: Rotation, direction: RotationDirection): Vector2;
+    withPerpendicularDirection(rotation: RotationDirection): Vector2;
     withWeightedAverage(other: Vector2, weight: Percent): Vector2;
 }

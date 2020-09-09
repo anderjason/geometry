@@ -60,16 +60,8 @@ export class Point2 {
     return new Point2(this._x, this._y);
   }
 
-  // toAngle(other: Point2): number {
-  //   const diff = this.withSubtractedPoint(other);
-
-  //   return Math.atan2(diff.y, diff.x);
-  // }
-
   toDistance(other: Point2): number {
-    const diff = this.withSubtractedVector(Vector2.givenPoint(other));
-
-    return Math.sqrt(Math.pow(diff.x, 2) + Math.pow(diff.y, 2));
+    return this.toVector(other).toMagnitude();
   }
 
   toVector(other: Point2): Vector2 {
@@ -85,15 +77,15 @@ export class Point2 {
     return new Point2(x, y);
   }
 
-  withAngleDistance(angle: number, distance: number): Point2 {
-    // Rotate the angle based on the browser coordinate system ([0,0] in the top left)
-    const angleRotated = angle + Math.PI / 2;
+  // withAngleDistance(angle: number, distance: number): Point2 {
+  //   // Rotate the angle based on the browser coordinate system ([0,0] in the top left)
+  //   const angleRotated = angle + Math.PI / 2;
 
-    const x = this.x + Math.sin(angleRotated) * distance;
-    const y = this.y - Math.cos(angleRotated) * distance;
+  //   const x = this.x + Math.sin(angleRotated) * distance;
+  //   const y = this.y - Math.cos(angleRotated) * distance;
 
-    return new Point2(x, y);
-  }
+  //   return new Point2(x, y);
+  // }
 
   withAddedVector(vector: Vector2): Point2 {
     return new Point2(this.x + vector.x, this.y + vector.y);

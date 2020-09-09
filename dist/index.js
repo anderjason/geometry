@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Size3 = exports.Size2 = exports.Rotation = exports.Point3 = exports.Point2 = exports.MutableSize3 = exports.MutableSize2 = exports.MutablePoint3 = exports.MutablePoint2 = exports.Box3 = exports.Box2 = void 0;
+exports.Size3 = exports.Size2 = exports.Rotation = exports.Point3 = exports.Point2 = exports.MutableSize3 = exports.MutableSize2 = exports.MutablePoint3 = exports.MutablePoint2 = exports.LineSegment2 = exports.Box3 = exports.Box2 = void 0;
 const Box2_1 = require("./Box2");
 Object.defineProperty(exports, "Box2", { enumerable: true, get: function () { return Box2_1.Box2; } });
 const Box3_1 = require("./Box3");
@@ -23,4 +23,6 @@ const Size2_1 = require("./Size2");
 Object.defineProperty(exports, "Size2", { enumerable: true, get: function () { return Size2_1.Size2; } });
 const Size3_1 = require("./Size3");
 Object.defineProperty(exports, "Size3", { enumerable: true, get: function () { return Size3_1.Size3; } });
+const LineSegment2_1 = require("./LineSegment2");
+Object.defineProperty(exports, "LineSegment2", { enumerable: true, get: function () { return LineSegment2_1.LineSegment2; } });
 //# sourceMappingURL=index.js.map
