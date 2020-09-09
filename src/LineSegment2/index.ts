@@ -1,12 +1,8 @@
 import { Point2 } from "../Point2";
 import { Vector2 } from "../Vector2";
 import { NumberUtil } from "@anderjason/util";
-
-export type LineIntersectionMode =
-  | "touch"
-  | "extendThis"
-  | "extendOther"
-  | "extendBoth";
+import { Line2 } from "../Line2";
+import { optionalLineIntersectionGivenPoints } from "../Line2/optionalLineIntersectionGivenPoints";
 
 export class LineSegment2 {
   private _start: Point2;
@@ -117,69 +113,23 @@ export class LineSegment2 {
     }
   }
 
-  toOptionalIntersection(
-    other: LineSegment2,
-    mode: LineIntersectionMode
-  ): Point2 {
-    // based on https://stackoverflow.com/questions/13937782/calculating-the-point-of-intersection-of-two-lines
+  toOptionalIntersectionGivenLine(other: Line2): Point2 {
+    return other.toOptionalIntersectionGivenSegment(this);
+  }
 
-    // if the lines intersect, the result contains the x and y of the intersection
-    // (treating the lines as infinite) and booleans for whether line segment 1 or line segment 2 contain the point
-    let denominator: number;
-    let a: number;
-    let b: number;
-    let numerator1: number;
-    let numerator2: number;
-    let x: number;
-    let y: number;
-    let onLine1;
-    let onLine2;
+  toOptionalIntersectionGivenSegment(other: LineSegment2): Point2 {
+    const startA = this.startPoint;
+    const endA = this.endPoint;
+    const startB = other.startPoint;
+    const endB = other.endPoint;
 
-    denominator =
-      (other._end.y - other._start.y) * (this._end.x - this._start.x) -
-      (other._end.x - other._start.x) * (this._end.y - this._start.y);
-
-    if (denominator == 0) {
-      return undefined;
-    }
-
-    a = this._start.y - other._start.y;
-    b = this._start.x - other._start.x;
-
-    numerator1 =
-      (other._end.x - other._start.x) * a - (other._end.y - other._start.y) * b;
-    numerator2 =
-      (this._end.x - this._start.x) * a - (this._end.y - this._start.y) * b;
-
-    a = numerator1 / denominator;
-    b = numerator2 / denominator;
-
-    // if we cast these lines infinitely in both directions, they intersect here:
-    x = this._start.x + a * (this._end.x - this._start.x);
-    y = this._start.y + a * (this._end.y - this._start.y);
-
-    // if line1 is a segment and line2 is infinite, they intersect if:
-    if (a > 0 && a < 1) {
-      onLine1 = true;
-    }
-    // if line2 is a segment and line1 is infinite, they intersect if:
-    if (b > 0 && b < 1) {
-      onLine2 = true;
-    }
-
-    if (mode === "touch" && (onLine1 === false || onLine2 === false)) {
-      return undefined;
-    }
-
-    if (mode === "extendOther" && onLine1 === false) {
-      return undefined;
-    }
-
-    if (mode === "extendThis" && onLine2 === false) {
-      return undefined;
-    }
-
-    return Point2.givenXY(x, y);
+    return optionalLineIntersectionGivenPoints(
+      startA,
+      endA,
+      startB,
+      endB,
+      "touch"
+    );
   }
 
   withAddedVector(vector: Vector2): LineSegment2 {

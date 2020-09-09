@@ -61,6 +61,10 @@ export class Vector2 {
     return this._x === other._x && this._y === other._y;
   };
 
+  toClone(): Vector2 {
+    return new Vector2(this._x, this._y);
+  }
+
   withMultipliedScalar(input: number): Vector2 {
     return new Vector2(this._x * input, this._y * input);
   }

@@ -14,6 +14,7 @@ export declare class Vector2 {
     get y(): number;
     get isZero(): boolean;
     isEqual: (other: Vector2) => boolean;
+    toClone(): Vector2;
     withMultipliedScalar(input: number): Vector2;
     withDividedScalar(input: number): Vector2;
     withAddedVector(other: Vector2): Vector2;

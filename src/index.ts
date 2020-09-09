@@ -10,10 +10,12 @@ import { Rotation } from "./Rotation";
 import { Size2 } from "./Size2";
 import { Size3 } from "./Size3";
 import { LineSegment2 } from "./LineSegment2";
+import { Line2 } from "./Line2";
 
 export {
   Box2,
   Box3,
+  Line2,
   LineSegment2,
   MutablePoint2,
   MutablePoint3,
