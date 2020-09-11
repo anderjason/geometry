@@ -14,6 +14,14 @@
 
 `TODO`
 
+### Line2
+
+`TODO`
+
+### LineSegment2
+
+`TODO`
+
 ### MutablePoint2
 
 `TODO`
