@@ -97,20 +97,20 @@ class LineSegment2 {
         const endB = other.endPoint;
         return optionalLineIntersectionGivenPoints_1.optionalLineIntersectionGivenPoints(startA, endA, startB, endB, "touch");
     }
-    toPointGivenDistance(lineSegment, distance, fromPoint) {
+    toPointGivenDistance(distance, fromPoint) {
         switch (fromPoint) {
             case "start":
                 if (distance === 0) {
-                    return lineSegment.startPoint;
+                    return this.startPoint;
                 }
-                return lineSegment.startPoint.withAddedVector(Vector2_1.Vector2.givenPoints(lineSegment.startPoint, lineSegment.endPoint)
+                return this.startPoint.withAddedVector(Vector2_1.Vector2.givenPoints(this.startPoint, this.endPoint)
                     .withNormalizedMagnitude()
                     .withMultipliedScalar(distance));
             case "end":
                 if (distance === 0) {
-                    return lineSegment.endPoint;
+                    return this.endPoint;
                 }
-                return lineSegment.endPoint.withAddedVector(Vector2_1.Vector2.givenPoints(lineSegment.endPoint, lineSegment.startPoint)
+                return this.endPoint.withAddedVector(Vector2_1.Vector2.givenPoints(this.endPoint, this.startPoint)
                     .withNormalizedMagnitude()
                     .withMultipliedScalar(distance));
             default:

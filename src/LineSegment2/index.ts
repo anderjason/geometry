@@ -143,29 +143,25 @@ export class LineSegment2 {
     );
   }
 
-  toPointGivenDistance(
-    lineSegment: LineSegment2,
-    distance: number,
-    fromPoint: "start" | "end"
-  ): Point2 {
+  toPointGivenDistance(distance: number, fromPoint: "start" | "end"): Point2 {
     switch (fromPoint) {
       case "start":
         if (distance === 0) {
-          return lineSegment.startPoint;
+          return this.startPoint;
         }
 
-        return lineSegment.startPoint.withAddedVector(
-          Vector2.givenPoints(lineSegment.startPoint, lineSegment.endPoint)
+        return this.startPoint.withAddedVector(
+          Vector2.givenPoints(this.startPoint, this.endPoint)
             .withNormalizedMagnitude()
             .withMultipliedScalar(distance)
         );
       case "end":
         if (distance === 0) {
-          return lineSegment.endPoint;
+          return this.endPoint;
         }
 
-        return lineSegment.endPoint.withAddedVector(
-          Vector2.givenPoints(lineSegment.endPoint, lineSegment.startPoint)
+        return this.endPoint.withAddedVector(
+          Vector2.givenPoints(this.endPoint, this.startPoint)
             .withNormalizedMagnitude()
             .withMultipliedScalar(distance)
         );
