@@ -22,5 +22,7 @@ export declare class LineSegment2 {
     toIntermediatePoint(percent: Percent): Point2;
     toOptionalIntersectionGivenLine(other: Line2): Point2;
     toOptionalIntersectionGivenSegment(other: LineSegment2): Point2;
+    toPointGivenDistance(lineSegment: LineSegment2, distance: number, fromPoint: "start" | "end"): Point2;
     withAddedVector(vector: Vector2): LineSegment2;
+    withSubtractedVector(vector: Vector2): LineSegment2;
 }

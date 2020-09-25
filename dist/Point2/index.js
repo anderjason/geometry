@@ -46,19 +46,6 @@ class Point2 {
     toVector(other) {
         return Vector2_1.Vector2.givenXY(other.x - this.x, other.y - this.y);
     }
-    withWeightedAverage(other, weight) {
-        const t = weight.toNumber(1);
-        const x = this.x + (other.x - this.x) * t;
-        const y = this.y + (other.y - this.y) * t;
-        return new Point2(x, y);
-    }
-    // withAngleDistance(angle: number, distance: number): Point2 {
-    //   // Rotate the angle based on the browser coordinate system ([0,0] in the top left)
-    //   const angleRotated = angle + Math.PI / 2;
-    //   const x = this.x + Math.sin(angleRotated) * distance;
-    //   const y = this.y - Math.cos(angleRotated) * distance;
-    //   return new Point2(x, y);
-    // }
     withAddedVector(vector) {
         return new Point2(this.x + vector.x, this.y + vector.y);
     }

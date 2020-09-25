@@ -1,4 +1,3 @@
-import { Percent } from "@anderjason/util";
 import { Vector2 } from "../Vector2";
 export declare class Point2 {
     protected _x: number;
@@ -14,7 +13,6 @@ export declare class Point2 {
     isEqual(other: Point2): boolean;
     toDistance(other: Point2): number;
     toVector(other: Point2): Vector2;
-    withWeightedAverage(other: Point2, weight: Percent): Point2;
     withAddedVector(vector: Vector2): Point2;
     withSubtractedVector(vector: Vector2): Point2;
 }

@@ -116,11 +116,12 @@ export class LineSegment2 {
   }
 
   toIntermediatePoint(percent: Percent): Point2 {
-    return this.startPoint.withAddedVector(
-      Vector2.givenPoints(this.startPoint, this.endPoint).withMultipliedScalar(
-        percent.toNumber(1)
-      )
-    );
+    const t = percent.toNumber(1);
+
+    const x = this.startPoint.x + (this.endPoint.x - this.startPoint.x) * t;
+    const y = this.startPoint.y + (this.endPoint.y - this.startPoint.y) * t;
+
+    return Point2.givenXY(x, y);
   }
 
   toOptionalIntersectionGivenLine(other: Line2): Point2 {
@@ -142,10 +143,48 @@ export class LineSegment2 {
     );
   }
 
+  toPointGivenDistance(
+    lineSegment: LineSegment2,
+    distance: number,
+    fromPoint: "start" | "end"
+  ): Point2 {
+    switch (fromPoint) {
+      case "start":
+        if (distance === 0) {
+          return lineSegment.startPoint;
+        }
+
+        return lineSegment.startPoint.withAddedVector(
+          Vector2.givenPoints(lineSegment.startPoint, lineSegment.endPoint)
+            .withNormalizedMagnitude()
+            .withMultipliedScalar(distance)
+        );
+      case "end":
+        if (distance === 0) {
+          return lineSegment.endPoint;
+        }
+
+        return lineSegment.endPoint.withAddedVector(
+          Vector2.givenPoints(lineSegment.endPoint, lineSegment.startPoint)
+            .withNormalizedMagnitude()
+            .withMultipliedScalar(distance)
+        );
+      default:
+        throw new Error("Unsupported fromPoint");
+    }
+  }
+
   withAddedVector(vector: Vector2): LineSegment2 {
     return new LineSegment2(
       this._start.withAddedVector(vector),
       this._end.withAddedVector(vector)
+    );
+  }
+
+  withSubtractedVector(vector: Vector2): LineSegment2 {
+    return new LineSegment2(
+      this._start.withSubtractedVector(vector),
+      this._end.withSubtractedVector(vector)
     );
   }
 }
