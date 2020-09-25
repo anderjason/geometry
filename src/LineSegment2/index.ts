@@ -1,8 +1,10 @@
 import { Point2 } from "../Point2";
 import { Vector2 } from "../Vector2";
-import { NumberUtil } from "@anderjason/util";
+import { NumberUtil, Percent } from "@anderjason/util";
 import { Line2 } from "../Line2";
 import { optionalLineIntersectionGivenPoints } from "../Line2/optionalLineIntersectionGivenPoints";
+
+const half = Percent.givenFraction(1, 2);
 
 export class LineSegment2 {
   private _start: Point2;
@@ -74,10 +76,6 @@ export class LineSegment2 {
     return other._start.isEqual(this._start) && other._end.isEqual(this._end);
   }
 
-  toClone(): LineSegment2 {
-    return new LineSegment2(this._start.toClone(), this._end.toClone());
-  }
-
   toLength(): number {
     return this._start.toDistance(this._end);
   }
@@ -111,6 +109,18 @@ export class LineSegment2 {
         .withAddedVector(line.withMultipliedScalar(d))
         .toPoint();
     }
+  }
+
+  toMidpoint(): Point2 {
+    return this.toIntermediatePoint(half);
+  }
+
+  toIntermediatePoint(percent: Percent): Point2 {
+    return this.startPoint.withAddedVector(
+      Vector2.givenPoints(this.startPoint, this.endPoint).withMultipliedScalar(
+        percent.toNumber(1)
+      )
+    );
   }
 
   toOptionalIntersectionGivenLine(other: Line2): Point2 {

@@ -40,9 +40,6 @@ class Point2 {
         }
         return other._x == this._x && other._y == this._y;
     }
-    toClone() {
-        return new Point2(this._x, this._y);
-    }
     toDistance(other) {
         return this.toVector(other).toMagnitude();
     }

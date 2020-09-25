@@ -1,5 +1,6 @@
 import { Point2 } from "../Point2";
 import { Vector2 } from "../Vector2";
+import { Percent } from "@anderjason/util";
 import { Line2 } from "../Line2";
 export declare class LineSegment2 {
     private _start;
@@ -15,9 +16,10 @@ export declare class LineSegment2 {
     get startY(): number;
     get endY(): number;
     isEqual(other: LineSegment2): boolean;
-    toClone(): LineSegment2;
     toLength(): number;
     toNearestPoint(point: Point2, infinite: boolean): Point2;
+    toMidpoint(): Point2;
+    toIntermediatePoint(percent: Percent): Point2;
     toOptionalIntersectionGivenLine(other: Line2): Point2;
     toOptionalIntersectionGivenSegment(other: LineSegment2): Point2;
     withAddedVector(vector: Vector2): LineSegment2;

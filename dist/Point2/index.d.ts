@@ -12,7 +12,6 @@ export declare class Point2 {
     get y(): number;
     get isZero(): boolean;
     isEqual(other: Point2): boolean;
-    toClone(): Point2;
     toDistance(other: Point2): number;
     toVector(other: Point2): Vector2;
     withWeightedAverage(other: Point2, weight: Percent): Point2;

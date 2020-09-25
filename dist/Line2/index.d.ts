@@ -12,7 +12,6 @@ export declare class Line2 {
     get vector(): Vector2;
     get point(): Point2;
     isEqual(other: Line2): boolean;
-    toClone(): Line2;
     toNearestTouchingPoint(point: Point2): Point2;
     toOptionalIntersectionGivenSegment(other: LineSegment2): Point2;
     toOptionalIntersectionGivenLine(other: Line2): Point2;

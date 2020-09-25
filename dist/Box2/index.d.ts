@@ -15,7 +15,6 @@ export declare class Box2 {
     get size(): Size2;
     isPointInside(point: Point2): boolean;
     isEqual(other: Box2): boolean;
-    toClone(): Box2;
     toTop(): number;
     toLeft(): number;
     toRight(): number;

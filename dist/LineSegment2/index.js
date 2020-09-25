@@ -5,6 +5,7 @@ const Point2_1 = require("../Point2");
 const Vector2_1 = require("../Vector2");
 const util_1 = require("@anderjason/util");
 const optionalLineIntersectionGivenPoints_1 = require("../Line2/optionalLineIntersectionGivenPoints");
+const half = util_1.Percent.givenFraction(1, 2);
 class LineSegment2 {
     constructor(a, b) {
         this._start = a;
@@ -52,9 +53,6 @@ class LineSegment2 {
         }
         return other._start.isEqual(this._start) && other._end.isEqual(this._end);
     }
-    toClone() {
-        return new LineSegment2(this._start.toClone(), this._end.toClone());
-    }
     toLength() {
         return this._start.toDistance(this._end);
     }
@@ -79,6 +77,12 @@ class LineSegment2 {
                 .withAddedVector(line.withMultipliedScalar(d))
                 .toPoint();
         }
+    }
+    toMidpoint() {
+        return this.toIntermediatePoint(half);
+    }
+    toIntermediatePoint(percent) {
+        return this.startPoint.withAddedVector(Vector2_1.Vector2.givenPoints(this.startPoint, this.endPoint).withMultipliedScalar(percent.toNumber(1)));
     }
     toOptionalIntersectionGivenLine(other) {
         return other.toOptionalIntersectionGivenSegment(this);

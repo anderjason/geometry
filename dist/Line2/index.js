@@ -42,9 +42,6 @@ class Line2 {
         }
         return other.vector.isEqual(this.vector) && other.point.isEqual(this.point);
     }
-    toClone() {
-        return new Line2(this._vector.toClone(), this._point.toClone());
-    }
     toNearestTouchingPoint(point) {
         const pnt = Vector2_1.Vector2.givenXY(point.x, point.y);
         const linePnt = Vector2_1.Vector2.givenXY(this._point.x, this._point.y);

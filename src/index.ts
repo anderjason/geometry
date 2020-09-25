@@ -6,6 +6,7 @@ import { MutableSize2 } from "./MutableSize2";
 import { MutableSize3 } from "./MutableSize3";
 import { Point2 } from "./Point2";
 import { Point3 } from "./Point3";
+import { Polygon2 } from "./Polygon2";
 import { Rotation } from "./Rotation";
 import { Size2 } from "./Size2";
 import { Size3 } from "./Size3";
@@ -23,6 +24,7 @@ export {
   MutableSize3,
   Point2,
   Point3,
+  Polygon2,
   Rotation,
   Size2,
   Size3,

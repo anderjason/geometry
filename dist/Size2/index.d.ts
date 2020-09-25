@@ -10,7 +10,6 @@ export declare class Size2 {
     get width(): number;
     get height(): number;
     get isZero(): boolean;
-    toClone(): Size2;
     toHalf(): Size2;
     isEqual(other: Size2): boolean;
     toScale(availableSize: Size2, scaleMode: ScaleMode): number;

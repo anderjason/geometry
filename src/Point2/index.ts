@@ -56,10 +56,6 @@ export class Point2 {
     return other._x == this._x && other._y == this._y;
   }
 
-  toClone(): Point2 {
-    return new Point2(this._x, this._y);
-  }
-
   toDistance(other: Point2): number {
     return this.toVector(other).toMagnitude();
   }

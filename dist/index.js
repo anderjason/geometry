@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Size3 = exports.Size2 = exports.Rotation = exports.Point3 = exports.Point2 = exports.MutableSize3 = exports.MutableSize2 = exports.MutablePoint3 = exports.MutablePoint2 = exports.LineSegment2 = exports.Line2 = exports.Box3 = exports.Box2 = void 0;
+exports.Size3 = exports.Size2 = exports.Rotation = exports.Polygon2 = exports.Point3 = exports.Point2 = exports.MutableSize3 = exports.MutableSize2 = exports.MutablePoint3 = exports.MutablePoint2 = exports.LineSegment2 = exports.Line2 = exports.Box3 = exports.Box2 = void 0;
 const Box2_1 = require("./Box2");
 Object.defineProperty(exports, "Box2", { enumerable: true, get: function () { return Box2_1.Box2; } });
 const Box3_1 = require("./Box3");
@@ -17,6 +17,8 @@ const Point2_1 = require("./Point2");
 Object.defineProperty(exports, "Point2", { enumerable: true, get: function () { return Point2_1.Point2; } });
 const Point3_1 = require("./Point3");
 Object.defineProperty(exports, "Point3", { enumerable: true, get: function () { return Point3_1.Point3; } });
+const Polygon2_1 = require("./Polygon2");
+Object.defineProperty(exports, "Polygon2", { enumerable: true, get: function () { return Polygon2_1.Polygon2; } });
 const Rotation_1 = require("./Rotation");
 Object.defineProperty(exports, "Rotation", { enumerable: true, get: function () { return Rotation_1.Rotation; } });
 const Size2_1 = require("./Size2");

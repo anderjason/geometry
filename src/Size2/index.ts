@@ -43,10 +43,6 @@ export class Size2 {
     return this._width === 0 || this._height === 0;
   }
 
-  toClone(): Size2 {
-    return new Size2(this._width, this._height);
-  }
-
   toHalf(): Size2 {
     if (this._half == null) {
       this._half = Size2.givenWidthHeight(this._width / 2, this._height / 2);

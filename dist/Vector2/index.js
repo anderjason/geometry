@@ -44,9 +44,6 @@ class Vector2 {
     get isZero() {
         return this._x === 0 && this._y === 0;
     }
-    toClone() {
-        return new Vector2(this._x, this._y);
-    }
     withMultipliedScalar(input) {
         return new Vector2(this._x * input, this._y * input);
     }

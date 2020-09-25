@@ -57,10 +57,6 @@ export class Line2 {
     return other.vector.isEqual(this.vector) && other.point.isEqual(this.point);
   }
 
-  toClone(): Line2 {
-    return new Line2(this._vector.toClone(), this._point.toClone());
-  }
-
   toNearestTouchingPoint(point: Point2): Point2 {
     const pnt = Vector2.givenXY(point.x, point.y);
 

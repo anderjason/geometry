@@ -66,9 +66,6 @@ class Box2 {
         }
         return (other._center.isEqual(this._center) && other._size.isEqual(this._size));
     }
-    toClone() {
-        return new Box2(this._center.toClone(), this._size.toClone());
-    }
     toTop() {
         return this._center.y - this._size.height / 2;
     }

@@ -49,10 +49,6 @@ export class Point3 {
     return this._x === 0 && this._y === 0 && this._z === 0;
   }
 
-  toClone(): Point3 {
-    return new Point3(this._x, this._y, this._z);
-  }
-
   isEqual(other: Point3): boolean {
     if (other == null) {
       return false;

@@ -52,10 +52,6 @@ export class Size3 {
     return this._width === 0 || this._height === 0 || this._depth === 0;
   }
 
-  toClone() {
-    return new Size3(this._width, this._height, this._depth);
-  }
-
   toHalf(): Size3 {
     if (this._half == null) {
       this._half = Size3.givenWidthHeightDepth(
@@ -96,12 +92,12 @@ export class Size3 {
 
     if (scale < 1 && scaleMode === "expand") {
       // would shrink, but only expanding is allowed
-      return this.toClone();
+      return this;
     }
 
     if (scale > 1 && scaleMode === "shrink") {
       // would expand, but only shrinking is allowed
-      return this.toClone();
+      return this;
     }
 
     return Size3.givenWidthHeightDepth(

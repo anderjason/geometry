@@ -12,7 +12,6 @@ export declare class Point3 {
     get y(): number;
     get z(): number;
     get isZero(): boolean;
-    toClone(): Point3;
     isEqual(other: Point3): boolean;
     withWeightedAverage(other: Point3, weight: Percent): Point3;
     withAddedPoint(other: Point3): Point3;

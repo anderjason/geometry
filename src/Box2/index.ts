@@ -116,10 +116,6 @@ export class Box2 {
     );
   }
 
-  toClone(): Box2 {
-    return new Box2(this._center.toClone(), this._size.toClone());
-  }
-
   toTop(): number {
     return this._center.y - this._size.height / 2;
   }
