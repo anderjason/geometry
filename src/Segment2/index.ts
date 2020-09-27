@@ -6,24 +6,19 @@ import { optionalLineIntersectionGivenPoints } from "../Line2/optionalLineInters
 
 const half = Percent.givenFraction(1, 2);
 
-export class LineSegment2 {
+export class Segment2 {
   private _start: Point2;
   private _end: Point2;
 
-  static givenXYPair(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-  ): LineSegment2 {
-    return new LineSegment2(Point2.givenXY(x1, y1), Point2.givenXY(x2, y2));
+  static givenXYPair(x1: number, y1: number, x2: number, y2: number): Segment2 {
+    return new Segment2(Point2.givenXY(x1, y1), Point2.givenXY(x2, y2));
   }
 
-  static givenPoints(startPoint: Point2, endPoint: Point2): LineSegment2 {
-    return new LineSegment2(startPoint, endPoint);
+  static givenPoints(startPoint: Point2, endPoint: Point2): Segment2 {
+    return new Segment2(startPoint, endPoint);
   }
 
-  static isEqual(a: LineSegment2, b: LineSegment2): boolean {
+  static isEqual(a: Segment2, b: Segment2): boolean {
     if (a == null && b == null) {
       return true;
     }
@@ -64,12 +59,12 @@ export class LineSegment2 {
     return this._end.y;
   }
 
-  isEqual(other: LineSegment2): boolean {
+  isEqual(other: Segment2): boolean {
     if (other == null) {
       return false;
     }
 
-    if (!(other instanceof LineSegment2)) {
+    if (!(other instanceof Segment2)) {
       return false;
     }
 
@@ -128,7 +123,7 @@ export class LineSegment2 {
     return other.toOptionalIntersectionGivenSegment(this);
   }
 
-  toOptionalIntersectionGivenSegment(other: LineSegment2): Point2 {
+  toOptionalIntersectionGivenSegment(other: Segment2): Point2 {
     const startA = this.startPoint;
     const endA = this.endPoint;
     const startB = other.startPoint;
@@ -170,15 +165,15 @@ export class LineSegment2 {
     }
   }
 
-  withAddedVector(vector: Vector2): LineSegment2 {
-    return new LineSegment2(
+  withAddedVector(vector: Vector2): Segment2 {
+    return new Segment2(
       this._start.withAddedVector(vector),
       this._end.withAddedVector(vector)
     );
   }
 
-  withSubtractedVector(vector: Vector2): LineSegment2 {
-    return new LineSegment2(
+  withSubtractedVector(vector: Vector2): Segment2 {
+    return new Segment2(
       this._start.withSubtractedVector(vector),
       this._end.withSubtractedVector(vector)
     );

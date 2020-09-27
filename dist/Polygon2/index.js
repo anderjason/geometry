@@ -40,8 +40,8 @@ class Polygon2 {
                 const pointD = nextPoint.withAddedVector(vectorD);
                 // find the intersection of the two lines, and
                 // add it to the expanded polygon
-                const lineSegmentA = __1.LineSegment2.givenPoints(pointA, pointB);
-                const lineSegmentB = __1.LineSegment2.givenPoints(pointC, pointD);
+                const lineSegmentA = __1.Segment2.givenPoints(pointA, pointB);
+                const lineSegmentB = __1.Segment2.givenPoints(pointC, pointD);
                 const intersection = lineSegmentA.toOptionalIntersectionGivenSegment(lineSegmentB);
                 if (intersection == null) {
                     throw new Error("Could not find line intersection");
@@ -72,6 +72,15 @@ class Polygon2 {
     static givenPoints(points) {
         return new Polygon2(points);
     }
+    static isEqual(a, b) {
+        if (a == null && b == null) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        return a.isEqual(b);
+    }
     get isClockwise() {
         if (this.points == null || this.points.length < 3) {
             return;
@@ -80,6 +89,20 @@ class Polygon2 {
         return (Vector2_1.Vector2.givenPoints(p[0], p[1])
             .withRotation(__1.Rotation.givenDegrees(90), "clockwise")
             .toDotProduct(Vector2_1.Vector2.givenPoints(p[1], p[2])) >= 0);
+    }
+    isEqual(other) {
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof Polygon2)) {
+            return false;
+        }
+        if (this.points.length !== other.points.length) {
+            return false;
+        }
+        return this.points.every((point, idx) => {
+            return point.isEqual(other.points[idx]);
+        });
     }
 }
 exports.Polygon2 = Polygon2;

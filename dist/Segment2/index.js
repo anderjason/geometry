@@ -1,21 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LineSegment2 = void 0;
+exports.Segment2 = void 0;
 const Point2_1 = require("../Point2");
 const Vector2_1 = require("../Vector2");
 const util_1 = require("@anderjason/util");
 const optionalLineIntersectionGivenPoints_1 = require("../Line2/optionalLineIntersectionGivenPoints");
 const half = util_1.Percent.givenFraction(1, 2);
-class LineSegment2 {
+class Segment2 {
     constructor(a, b) {
         this._start = a;
         this._end = b;
     }
     static givenXYPair(x1, y1, x2, y2) {
-        return new LineSegment2(Point2_1.Point2.givenXY(x1, y1), Point2_1.Point2.givenXY(x2, y2));
+        return new Segment2(Point2_1.Point2.givenXY(x1, y1), Point2_1.Point2.givenXY(x2, y2));
     }
     static givenPoints(startPoint, endPoint) {
-        return new LineSegment2(startPoint, endPoint);
+        return new Segment2(startPoint, endPoint);
     }
     static isEqual(a, b) {
         if (a == null && b == null) {
@@ -48,7 +48,7 @@ class LineSegment2 {
         if (other == null) {
             return false;
         }
-        if (!(other instanceof LineSegment2)) {
+        if (!(other instanceof Segment2)) {
             return false;
         }
         return other._start.isEqual(this._start) && other._end.isEqual(this._end);
@@ -118,11 +118,11 @@ class LineSegment2 {
         }
     }
     withAddedVector(vector) {
-        return new LineSegment2(this._start.withAddedVector(vector), this._end.withAddedVector(vector));
+        return new Segment2(this._start.withAddedVector(vector), this._end.withAddedVector(vector));
     }
     withSubtractedVector(vector) {
-        return new LineSegment2(this._start.withSubtractedVector(vector), this._end.withSubtractedVector(vector));
+        return new Segment2(this._start.withSubtractedVector(vector), this._end.withSubtractedVector(vector));
     }
 }
-exports.LineSegment2 = LineSegment2;
+exports.Segment2 = Segment2;
 //# sourceMappingURL=index.js.map

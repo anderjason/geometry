@@ -1,6 +1,6 @@
 import { Point2 } from "../Point2";
 import { Vector2 } from "../Vector2";
-import { LineSegment2 } from "..";
+import { Segment2 } from "..";
 import { optionalLineIntersectionGivenPoints } from "./optionalLineIntersectionGivenPoints";
 
 export class Line2 {
@@ -16,7 +16,7 @@ export class Line2 {
     return new Line2(vector, a);
   }
 
-  static givenLineSegment(lineSegment: LineSegment2): Line2 {
+  static givenSegment(lineSegment: Segment2): Line2 {
     return Line2.givenPoints(lineSegment.startPoint, lineSegment.endPoint);
   }
 
@@ -70,7 +70,7 @@ export class Line2 {
       .toPoint();
   }
 
-  toOptionalIntersectionGivenSegment(other: LineSegment2): Point2 {
+  toOptionalIntersectionGivenSegment(other: Segment2): Point2 {
     const startA = this.point;
     const endA = this.point.withAddedVector(this.vector);
     const startB = other.startPoint;

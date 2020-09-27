@@ -15,7 +15,7 @@ class Line2 {
         const vector = a.toVector(b);
         return new Line2(vector, a);
     }
-    static givenLineSegment(lineSegment) {
+    static givenSegment(lineSegment) {
         return Line2.givenPoints(lineSegment.startPoint, lineSegment.endPoint);
     }
     static isEqual(a, b) {

@@ -1,4 +1,9 @@
 export class Rotation {
+  private static _zero = new Rotation(0);
+
+  static ofZero(): Rotation {
+    return this._zero;
+  }
   static givenRadians(radians: number): Rotation {
     return new Rotation(radians);
   }
@@ -23,6 +28,10 @@ export class Rotation {
 
   private constructor(radians: number) {
     this.radians = radians;
+  }
+
+  get isZero(): boolean {
+    return this.radians === 0;
   }
 
   isEqual(other: Rotation): boolean {

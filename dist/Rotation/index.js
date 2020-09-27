@@ -5,6 +5,9 @@ class Rotation {
     constructor(radians) {
         this.radians = radians;
     }
+    static ofZero() {
+        return this._zero;
+    }
     static givenRadians(radians) {
         return new Rotation(radians);
     }
@@ -20,6 +23,9 @@ class Rotation {
         }
         return a.isEqual(b);
     }
+    get isZero() {
+        return this.radians === 0;
+    }
     isEqual(other) {
         if (other == null) {
             return false;
@@ -34,4 +40,5 @@ class Rotation {
     }
 }
 exports.Rotation = Rotation;
+Rotation._zero = new Rotation(0);
 //# sourceMappingURL=index.js.map

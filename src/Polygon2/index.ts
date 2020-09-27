@@ -1,4 +1,4 @@
-import { Point2, Rotation, LineSegment2, Box2 } from "..";
+import { Point2, Rotation, Segment2, Box2 } from "..";
 import { Vector2, RotationDirection } from "../Vector2";
 import { svgPathStringGivenPolygon } from "./_internal/svgPathStringGivenPolygon";
 
@@ -11,6 +11,18 @@ export class Polygon2 {
 
   static givenPoints(points: Point2[]) {
     return new Polygon2(points);
+  }
+
+  static isEqual(a: Polygon2, b: Polygon2): boolean {
+    if (a == null && b == null) {
+      return true;
+    }
+
+    if (a == null || b == null) {
+      return false;
+    }
+
+    return a.isEqual(b);
   }
 
   private constructor(points: Point2[]) {
@@ -29,6 +41,24 @@ export class Polygon2 {
         .withRotation(Rotation.givenDegrees(90), "clockwise")
         .toDotProduct(Vector2.givenPoints(p[1], p[2])) >= 0
     );
+  }
+
+  isEqual(other: Polygon2): boolean {
+    if (other == null) {
+      return false;
+    }
+
+    if (!(other instanceof Polygon2)) {
+      return false;
+    }
+
+    if (this.points.length !== other.points.length) {
+      return false;
+    }
+
+    return this.points.every((point, idx) => {
+      return point.isEqual(other.points[idx]);
+    });
   }
 
   withExpansion = (distance: number): Polygon2 => {
@@ -73,8 +103,8 @@ export class Polygon2 {
 
       // find the intersection of the two lines, and
       // add it to the expanded polygon
-      const lineSegmentA = LineSegment2.givenPoints(pointA, pointB);
-      const lineSegmentB = LineSegment2.givenPoints(pointC, pointD);
+      const lineSegmentA = Segment2.givenPoints(pointA, pointB);
+      const lineSegmentB = Segment2.givenPoints(pointC, pointD);
 
       const intersection = lineSegmentA.toOptionalIntersectionGivenSegment(
         lineSegmentB
