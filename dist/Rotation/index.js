@@ -3,13 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rotation = void 0;
 class Rotation {
     constructor(radians) {
-        this._radians = radians;
-    }
-    static ofZero() {
-        return new Rotation(0);
-    }
-    static ofFull() {
-        return Rotation.givenDegrees(360);
+        this.radians = radians;
     }
     static givenRadians(radians) {
         return new Rotation(radians);
@@ -17,14 +11,26 @@ class Rotation {
     static givenDegrees(degrees) {
         return new Rotation(degrees * (Math.PI / 180));
     }
-    get isZero() {
-        return this._radians === 0;
+    static isEqual(a, b) {
+        if (a == null && b == null) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        return a.isEqual(b);
     }
-    toRadians() {
-        return this._radians;
+    isEqual(other) {
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof Rotation)) {
+            return false;
+        }
+        return other.radians === this.radians;
     }
     toDegrees() {
-        return (180 * this._radians) / Math.PI;
+        return (180 * this.radians) / Math.PI;
     }
 }
 exports.Rotation = Rotation;

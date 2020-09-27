@@ -24,7 +24,7 @@ Test.define("Vector2 can calculate the angle between two vectors", () => {
   const a = Vector2.givenXY(5, -2);
   const b = Vector2.givenXY(-4, 5);
 
-  const actual = a.toAngle(b).toRadians();
+  const actual = a.toAngle(b).radians;
   const expected = 2.62;
 
   Test.assert(Math.abs(actual - expected) < 0.01);

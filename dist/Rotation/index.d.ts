@@ -1,11 +1,9 @@
 export declare class Rotation {
-    static ofZero(): Rotation;
-    static ofFull(): Rotation;
     static givenRadians(radians: number): Rotation;
     static givenDegrees(degrees: number): Rotation;
-    private _radians;
+    static isEqual(a: Rotation, b: Rotation): boolean;
+    readonly radians: number;
     private constructor();
-    get isZero(): boolean;
-    toRadians(): number;
+    isEqual(other: Rotation): boolean;
     toDegrees(): number;
 }

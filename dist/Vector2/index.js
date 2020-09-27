@@ -90,7 +90,7 @@ class Vector2 {
         return new Vector2(-this._x, -this._y);
     }
     withRotation(rotation, direction) {
-        let rad = rotation.toRadians();
+        let rad = rotation.radians;
         if (direction === "clockwise") {
             rad *= -1;
         }

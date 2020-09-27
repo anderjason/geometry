@@ -1,3 +1,4 @@
+import { Rotation } from "../Rotation";
 import { Vector2 } from "../Vector2";
 
 export class Point2 {
@@ -69,5 +70,16 @@ export class Point2 {
 
   withSubtractedVector(vector: Vector2): Point2 {
     return new Point2(this.x - vector.x, this.y - vector.y);
+  }
+
+  withRotationAroundPoint(rotation: Rotation, center: Point2): Point2 {
+    return Point2.givenXY(
+      Math.cos(rotation.radians) * (this.x - center.x) -
+        Math.sin(rotation.radians) * (this.y - center.y) +
+        center.x,
+      Math.sin(rotation.radians) * (this.x - center.x) +
+        Math.cos(rotation.radians) * (this.y - center.y) +
+        center.y
+    );
   }
 }

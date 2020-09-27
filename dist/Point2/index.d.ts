@@ -1,3 +1,4 @@
+import { Rotation } from "../Rotation";
 import { Vector2 } from "../Vector2";
 export declare class Point2 {
     protected _x: number;
@@ -15,4 +16,5 @@ export declare class Point2 {
     toVector(other: Point2): Vector2;
     withAddedVector(vector: Vector2): Point2;
     withSubtractedVector(vector: Vector2): Point2;
+    withRotationAroundPoint(rotation: Rotation, center: Point2): Point2;
 }

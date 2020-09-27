@@ -1,12 +1,4 @@
 export class Rotation {
-  static ofZero(): Rotation {
-    return new Rotation(0);
-  }
-
-  static ofFull(): Rotation {
-    return Rotation.givenDegrees(360);
-  }
-
   static givenRadians(radians: number): Rotation {
     return new Rotation(radians);
   }
@@ -15,21 +7,37 @@ export class Rotation {
     return new Rotation(degrees * (Math.PI / 180));
   }
 
-  private _radians: number;
+  static isEqual(a: Rotation, b: Rotation): boolean {
+    if (a == null && b == null) {
+      return true;
+    }
+
+    if (a == null || b == null) {
+      return false;
+    }
+
+    return a.isEqual(b);
+  }
+
+  readonly radians: number;
 
   private constructor(radians: number) {
-    this._radians = radians;
+    this.radians = radians;
   }
 
-  get isZero(): boolean {
-    return this._radians === 0;
-  }
+  isEqual(other: Rotation): boolean {
+    if (other == null) {
+      return false;
+    }
 
-  toRadians(): number {
-    return this._radians;
+    if (!(other instanceof Rotation)) {
+      return false;
+    }
+
+    return other.radians === this.radians;
   }
 
   toDegrees(): number {
-    return (180 * this._radians) / Math.PI;
+    return (180 * this.radians) / Math.PI;
   }
 }

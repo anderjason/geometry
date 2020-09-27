@@ -7,8 +7,8 @@ export declare class Vector2 {
     static givenPoint(point: Point2): Vector2;
     static givenPoints(startPoint: Point2, endPoint: Point2): Vector2;
     static isEqual(a: Vector2, b: Vector2): boolean;
-    protected _x: number;
-    protected _y: number;
+    private _x;
+    private _y;
     private constructor();
     get x(): number;
     get y(): number;

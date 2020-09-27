@@ -29,8 +29,8 @@ export class Vector2 {
     return a.isEqual(b);
   }
 
-  protected _x: number;
-  protected _y: number;
+  private _x: number;
+  private _y: number;
 
   private constructor(x: number, y: number) {
     this._x = x;
@@ -122,7 +122,7 @@ export class Vector2 {
   }
 
   withRotation(rotation: Rotation, direction: RotationDirection): Vector2 {
-    let rad = rotation.toRadians();
+    let rad = rotation.radians;
 
     if (direction === "clockwise") {
       rad *= -1;
