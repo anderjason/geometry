@@ -10,31 +10,7 @@
 
 `TODO`
 
-### Box3
-
-`TODO`
-
 ### Line2
-
-`TODO`
-
-### LineSegment2
-
-`TODO`
-
-### MutablePoint2
-
-`TODO`
-
-### MutablePoint3
-
-`TODO`
-
-### MutableSize2
-
-`TODO`
-
-### MutableSize3
 
 `TODO`
 
@@ -42,7 +18,7 @@
 
 `TODO`
 
-### Point3
+### Polygon2
 
 `TODO`
 
@@ -50,11 +26,11 @@
 
 `TODO`
 
-### Size2
+### Segment2
 
 `TODO`
 
-### Size3
+### Size2
 
 `TODO`
 
