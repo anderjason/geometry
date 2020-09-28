@@ -25,7 +25,7 @@ Test.define("Point2 can rotate around a point", () => {
   const rotation = Rotation.givenDegrees(2566.695150000887);
 
   const expected = Point2.givenXY(187.54329240737576, 30.45699531991326);
-  const actual = original.withRotationAroundPoint(rotation, center);
+  const actual = original.withRotationAroundPoint(center, rotation);
 
   Test.assert(actual.isEqual(expected));
 });

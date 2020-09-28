@@ -65,15 +65,18 @@ class Size2 {
         }
         return scale;
     }
-    withAvailableSize(availableSize, scaleMode) {
+    toScaledSize(availableSize, scaleMode) {
         const scale = this.toScale(availableSize, scaleMode);
-        return Size2.givenWidthHeight(this._width * scale, this._height * scale);
-    }
-    withAddedWidthHeight(width, height) {
-        return Size2.givenWidthHeight(this._width + width, this._height + height);
+        return {
+            size: Size2.givenWidthHeight(this._width * scale, this._height * scale),
+            scale,
+        };
     }
     withAddedSize(other) {
         return Size2.givenWidthHeight(this._width + other.width, this._height + other.height);
+    }
+    withSubtractedSize(other) {
+        return Size2.givenWidthHeight(this._width - other.width, this._height - other.height);
     }
 }
 exports.Size2 = Size2;

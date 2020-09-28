@@ -50,7 +50,7 @@ Test.define(
     );
 
     anchors.forEach((anchor) => {
-      const actual = original.withBoundingBox(boundingBox, "flexible", anchor);
+      const actual = original.toScaledBox(boundingBox, "flexible", anchor).box;
 
       let functionName = "to" + StringUtil.stringWithCase(anchor, "PascalCase");
 
@@ -105,7 +105,7 @@ Test.define(
     );
 
     anchors.forEach((anchor) => {
-      const actual = original.withBoundingBox(boundingBox, "flexible", anchor);
+      const actual = original.toScaledBox(boundingBox, "flexible", anchor).box;
 
       const functionName =
         "to" + StringUtil.stringWithCase(anchor, "PascalCase");

@@ -1,4 +1,8 @@
 export declare type ScaleMode = "flexible" | "expand" | "shrink";
+export interface ScaledSize2 {
+    size: Size2;
+    scale: number;
+}
 export declare class Size2 {
     protected _width: number;
     protected _height: number;
@@ -13,7 +17,7 @@ export declare class Size2 {
     toHalf(): Size2;
     isEqual(other: Size2): boolean;
     toScale(availableSize: Size2, scaleMode: ScaleMode): number;
-    withAvailableSize(availableSize: Size2, scaleMode: ScaleMode): Size2;
-    withAddedWidthHeight(width: number, height: number): Size2;
+    toScaledSize(availableSize: Size2, scaleMode: ScaleMode): ScaledSize2;
     withAddedSize(other: Size2): Size2;
+    withSubtractedSize(other: Size2): Size2;
 }

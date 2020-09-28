@@ -102,14 +102,14 @@ class Box2 {
     toRightBottom() {
         return Point2_1.Point2.givenXY(this.toRight(), this.toBottom());
     }
-    withBoundingBox(boundingBox, scaleMode, anchor) {
-        const newSize = this._size.withAvailableSize(boundingBox._size, scaleMode);
+    toScaledBox(boundingBox, scaleMode, anchor) {
+        const { size, scale } = this._size.toScaledSize(boundingBox._size, scaleMode);
         let centerX;
         switch (anchor) {
             case "leftTop":
             case "leftCenter":
             case "leftBottom":
-                centerX = boundingBox.toLeft() + newSize.toHalf().width;
+                centerX = boundingBox.toLeft() + size.toHalf().width;
                 break;
             case "centerTop":
             case "center":
@@ -119,7 +119,7 @@ class Box2 {
             case "rightTop":
             case "rightCenter":
             case "rightBottom":
-                centerX = boundingBox.toRight() - newSize.toHalf().width;
+                centerX = boundingBox.toRight() - size.toHalf().width;
                 break;
         }
         let centerY;
@@ -127,7 +127,7 @@ class Box2 {
             case "leftTop":
             case "centerTop":
             case "rightTop":
-                centerY = boundingBox.toTop() + newSize.toHalf().height;
+                centerY = boundingBox.toTop() + size.toHalf().height;
                 break;
             case "leftCenter":
             case "center":
@@ -137,16 +137,16 @@ class Box2 {
             case "leftBottom":
             case "centerBottom":
             case "rightBottom":
-                centerY = boundingBox.toBottom() - newSize.toHalf().height;
+                centerY = boundingBox.toBottom() - size.toHalf().height;
                 break;
         }
-        return Box2.givenCenterSize(Point2_1.Point2.givenXY(centerX, centerY), newSize);
+        return {
+            box: Box2.givenCenterSize(Point2_1.Point2.givenXY(centerX, centerY), size),
+            scale,
+        };
     }
     withAddedSize(size, anchor) {
-        return this.withAddedWidthHeight(size.width, size.height, anchor);
-    }
-    withAddedWidthHeight(width, height, anchor) {
-        const newSize = this._size.withAddedWidthHeight(width, height);
+        const newSize = this._size.withAddedSize(size);
         let centerX;
         switch (anchor) {
             case "leftTop":

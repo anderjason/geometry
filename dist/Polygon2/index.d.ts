@@ -7,7 +7,7 @@ export declare class Polygon2 {
     private constructor();
     get isClockwise(): boolean;
     isEqual(other: Polygon2): boolean;
-    withExpansion: (distance: number) => Polygon2;
-    toSvgPathString: (cornerRadius?: number) => string;
-    toBounds: () => Box2;
+    withExpansion(distance: number): Polygon2;
+    toSvgPathString(cornerRadius?: number): string;
+    toBounds(): Box2;
 }

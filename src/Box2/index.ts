@@ -12,6 +12,11 @@ export type Anchor2 =
   | "centerBottom"
   | "rightBottom";
 
+export interface ScaledBox2 {
+  box: Box2;
+  scale: number;
+}
+
 export class Box2 {
   static givenDomRect(domRect: DOMRect): Box2 {
     return Box2.givenTopLeftSize(
@@ -164,19 +169,22 @@ export class Box2 {
     return Point2.givenXY(this.toRight(), this.toBottom());
   }
 
-  withBoundingBox(
+  toScaledBox(
     boundingBox: Box2,
     scaleMode: ScaleMode,
     anchor: Anchor2
-  ): Box2 {
-    const newSize = this._size.withAvailableSize(boundingBox._size, scaleMode);
+  ): ScaledBox2 {
+    const { size, scale } = this._size.toScaledSize(
+      boundingBox._size,
+      scaleMode
+    );
 
     let centerX: number;
     switch (anchor) {
       case "leftTop":
       case "leftCenter":
       case "leftBottom":
-        centerX = boundingBox.toLeft() + newSize.toHalf().width;
+        centerX = boundingBox.toLeft() + size.toHalf().width;
         break;
       case "centerTop":
       case "center":
@@ -186,7 +194,7 @@ export class Box2 {
       case "rightTop":
       case "rightCenter":
       case "rightBottom":
-        centerX = boundingBox.toRight() - newSize.toHalf().width;
+        centerX = boundingBox.toRight() - size.toHalf().width;
         break;
     }
 
@@ -195,7 +203,7 @@ export class Box2 {
       case "leftTop":
       case "centerTop":
       case "rightTop":
-        centerY = boundingBox.toTop() + newSize.toHalf().height;
+        centerY = boundingBox.toTop() + size.toHalf().height;
         break;
       case "leftCenter":
       case "center":
@@ -205,19 +213,18 @@ export class Box2 {
       case "leftBottom":
       case "centerBottom":
       case "rightBottom":
-        centerY = boundingBox.toBottom() - newSize.toHalf().height;
+        centerY = boundingBox.toBottom() - size.toHalf().height;
         break;
     }
 
-    return Box2.givenCenterSize(Point2.givenXY(centerX, centerY), newSize);
+    return {
+      box: Box2.givenCenterSize(Point2.givenXY(centerX, centerY), size),
+      scale,
+    };
   }
 
   withAddedSize(size: Size2, anchor: Anchor2): Box2 {
-    return this.withAddedWidthHeight(size.width, size.height, anchor);
-  }
-
-  withAddedWidthHeight(width: number, height: number, anchor: Anchor2): Box2 {
-    const newSize = this._size.withAddedWidthHeight(width, height);
+    const newSize = this._size.withAddedSize(size);
 
     let centerX: number;
     switch (anchor) {

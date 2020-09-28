@@ -68,9 +68,6 @@ class Vector2 {
     toDotProduct(other) {
         return this._x * other._x + this._y * other._y;
     }
-    toCrossProduct(other) {
-        return this.x * other.y - this.y * other.x;
-    }
     toMagnitude() {
         return Math.sqrt(this._x * this._x + this._y * this._y);
     }

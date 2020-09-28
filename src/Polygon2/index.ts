@@ -61,7 +61,7 @@ export class Polygon2 {
     });
   }
 
-  withExpansion = (distance: number): Polygon2 => {
+  withExpansion(distance: number): Polygon2 {
     const expanded: Point2[] = [];
     const rotationDirection: RotationDirection = this.isClockwise
       ? "counterclockwise"
@@ -117,13 +117,13 @@ export class Polygon2 {
     });
 
     return Polygon2.givenPoints(expanded);
-  };
+  }
 
-  toSvgPathString = (cornerRadius: number = 0): string => {
+  toSvgPathString(cornerRadius: number = 0): string {
     return svgPathStringGivenPolygon(this, cornerRadius);
-  };
+  }
 
-  toBounds = () => {
+  toBounds() {
     const allX = this.points.map((p) => p.x);
     const allY = this.points.map((p) => p.y);
 
@@ -137,5 +137,5 @@ export class Polygon2 {
     const bottomRight = Point2.givenXY(maxX, maxY);
 
     return Box2.givenOppositeCorners(topLeft, bottomRight);
-  };
+  }
 }

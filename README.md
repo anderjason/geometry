@@ -2,7 +2,9 @@
 
 ## Installation
 
-`npm install --save @anderjason/geometry`
+```
+npm install --save @anderjason/geometry
+```
 
 ## API Reference
 

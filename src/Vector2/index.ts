@@ -93,10 +93,6 @@ export class Vector2 {
     return this._x * other._x + this._y * other._y;
   }
 
-  toCrossProduct(other: Vector2): number {
-    return this.x * other.y - this.y * other.x;
-  }
-
   toMagnitude(): number {
     return Math.sqrt(this._x * this._x + this._y * this._y);
   }

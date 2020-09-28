@@ -22,7 +22,6 @@ export declare class Vector2 {
     withDividedVector(other: Vector2): Vector2;
     toPoint(): Point2;
     toDotProduct(other: Vector2): number;
-    toCrossProduct(other: Vector2): number;
     toMagnitude(): number;
     toAngle(other: Vector2): Rotation;
     withNormalizedMagnitude(): Vector2;

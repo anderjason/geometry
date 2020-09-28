@@ -1,6 +1,6 @@
 import { Point2 } from "../Point2";
 import { Vector2 } from "../Vector2";
-import { Box2, Segment2 } from "..";
+import { Segment2 } from "..";
 import { optionalLineIntersectionGivenPoints } from "./optionalLineIntersectionGivenPoints";
 
 export class Line2 {

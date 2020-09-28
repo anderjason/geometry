@@ -1,5 +1,10 @@
 export type ScaleMode = "flexible" | "expand" | "shrink";
 
+export interface ScaledSize2 {
+  size: Size2;
+  scale: number;
+}
+
 export class Size2 {
   protected _width: number;
   protected _height: number;
@@ -89,20 +94,26 @@ export class Size2 {
     return scale;
   }
 
-  withAvailableSize(availableSize: Size2, scaleMode: ScaleMode): Size2 {
+  toScaledSize(availableSize: Size2, scaleMode: ScaleMode): ScaledSize2 {
     const scale = this.toScale(availableSize, scaleMode);
 
-    return Size2.givenWidthHeight(this._width * scale, this._height * scale);
-  }
-
-  withAddedWidthHeight(width: number, height: number): Size2 {
-    return Size2.givenWidthHeight(this._width + width, this._height + height);
+    return {
+      size: Size2.givenWidthHeight(this._width * scale, this._height * scale),
+      scale,
+    };
   }
 
   withAddedSize(other: Size2): Size2 {
     return Size2.givenWidthHeight(
       this._width + other.width,
       this._height + other.height
+    );
+  }
+
+  withSubtractedSize(other: Size2): Size2 {
+    return Size2.givenWidthHeight(
+      this._width - other.width,
+      this._height - other.height
     );
   }
 }
