@@ -3,6 +3,8 @@ import { Vector2 } from "../Vector2";
 import { NumberUtil, Percent } from "@anderjason/util";
 import { Line2 } from "../Line2";
 import { optionalLineIntersectionGivenPoints } from "../Line2/optionalLineIntersectionGivenPoints";
+import { Box2 } from "../Box2";
+import { segmentWithClippingBox } from "./_internal/segmentWithClippingBox";
 
 const half = Percent.givenFraction(1, 2);
 
@@ -177,5 +179,9 @@ export class Segment2 {
       this._start.withSubtractedVector(vector),
       this._end.withSubtractedVector(vector)
     );
+  }
+
+  withClippingBox(box: Box2): Segment2 {
+    return segmentWithClippingBox(this, box);
   }
 }

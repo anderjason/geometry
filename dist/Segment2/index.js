@@ -5,6 +5,7 @@ const Point2_1 = require("../Point2");
 const Vector2_1 = require("../Vector2");
 const util_1 = require("@anderjason/util");
 const optionalLineIntersectionGivenPoints_1 = require("../Line2/optionalLineIntersectionGivenPoints");
+const segmentWithClippingBox_1 = require("./_internal/segmentWithClippingBox");
 const half = util_1.Percent.givenFraction(1, 2);
 class Segment2 {
     constructor(a, b) {
@@ -122,6 +123,9 @@ class Segment2 {
     }
     withSubtractedVector(vector) {
         return new Segment2(this._start.withSubtractedVector(vector), this._end.withSubtractedVector(vector));
+    }
+    withClippingBox(box) {
+        return segmentWithClippingBox_1.segmentWithClippingBox(this, box);
     }
 }
 exports.Segment2 = Segment2;

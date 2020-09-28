@@ -16,5 +16,5 @@ export declare class Point2 {
     toVector(other: Point2): Vector2;
     withAddedVector(vector: Vector2): Point2;
     withSubtractedVector(vector: Vector2): Point2;
-    withRotationAroundPoint(rotation: Rotation, center: Point2): Point2;
+    withRotationAroundPoint(center: Point2, rotation: Rotation): Point2;
 }

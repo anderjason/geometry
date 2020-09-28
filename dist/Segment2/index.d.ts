@@ -2,6 +2,7 @@ import { Point2 } from "../Point2";
 import { Vector2 } from "../Vector2";
 import { Percent } from "@anderjason/util";
 import { Line2 } from "../Line2";
+import { Box2 } from "../Box2";
 export declare class Segment2 {
     private _start;
     private _end;
@@ -25,4 +26,5 @@ export declare class Segment2 {
     toPointGivenDistance(distance: number, fromPoint: "start" | "end"): Point2;
     withAddedVector(vector: Vector2): Segment2;
     withSubtractedVector(vector: Vector2): Segment2;
+    withClippingBox(box: Box2): Segment2;
 }

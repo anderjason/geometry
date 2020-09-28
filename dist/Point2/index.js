@@ -52,7 +52,7 @@ class Point2 {
     withSubtractedVector(vector) {
         return new Point2(this.x - vector.x, this.y - vector.y);
     }
-    withRotationAroundPoint(rotation, center) {
+    withRotationAroundPoint(center, rotation) {
         return Point2.givenXY(Math.cos(rotation.radians) * (this.x - center.x) -
             Math.sin(rotation.radians) * (this.y - center.y) +
             center.x, Math.sin(rotation.radians) * (this.x - center.x) +
