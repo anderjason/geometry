@@ -24,6 +24,7 @@ export declare class Vector2 {
     toDotProduct(other: Vector2): number;
     toMagnitude(): number;
     toAngle(other: Vector2): Rotation;
+    toSignedAngle(other: Vector2): Rotation;
     withNormalizedMagnitude(): Vector2;
     withReversedDirection(): Vector2;
     withRotation(rotation: Rotation, direction: RotationDirection): Vector2;

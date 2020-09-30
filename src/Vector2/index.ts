@@ -109,6 +109,18 @@ export class Vector2 {
     return Rotation.givenRadians(Math.acos(dot / magnitude));
   }
 
+  toSignedAngle(other: Vector2): Rotation {
+    let radians = Math.atan2(other.y, other.x) - Math.atan2(this.y, this.x);
+
+    if (radians > Math.PI) {
+      radians -= Math.PI * 2;
+    } else if (radians < -Math.PI) {
+      radians += Math.PI * 2;
+    }
+
+    return Rotation.givenRadians(radians);
+  }
+
   withNormalizedMagnitude(): Vector2 {
     return this.withDividedScalar(this.toMagnitude());
   }

@@ -32,7 +32,7 @@ export class RotateAroundPoint extends ManagedObject<RotateAroundPointProps> {
       Color.givenHexString("#ff0099"),
     ]);
 
-    const pointCount = 60;
+    const pointCount = 15;
     const points: RotatingPoint[] = [];
     for (let i = 0; i < pointCount; i++) {
       const speed = NumberUtil.randomNumberGivenRange(0, 1);
@@ -58,15 +58,18 @@ export class RotateAroundPoint extends ManagedObject<RotateAroundPointProps> {
           const { context } = canvas;
 
           context.beginPath();
-          context.clearRect(0, 0, width, height);
+          context.fillStyle = "#17161E05";
+          context.fillRect(0, 0, width, height);
 
-          context.beginPath();
-          context.fillStyle = "#FFFFFF";
-          context.moveTo(center.x, center.y);
-          context.arc(center.x, center.y, 10, 0, 2 * Math.PI);
-          context.fill();
+          // context.beginPath();
+          // context.fillStyle = "#FFFFFF";
+          // context.moveTo(center.x, center.y);
+          // context.arc(center.x, center.y, 10, 0, 2 * Math.PI);
+          // context.fill();
 
-          points.forEach((rotatingPoint) => {
+          let i = 0;
+
+          points.forEach((rotatingPoint, idx) => {
             rotatingPoint.point = rotatingPoint.point.withRotationAroundPoint(
               center,
               Rotation.givenDegrees(rotatingPoint.degreesPerFrame)
@@ -80,16 +83,39 @@ export class RotateAroundPoint extends ManagedObject<RotateAroundPointProps> {
               rotatingPoint.pulse * 0.6
             );
 
+            const c = NumberUtil.numberWithRangeMap(
+              Math.sin(
+                (frameNumber + rotatingPoint.pulse * (idx * 3)) / frameDuration
+              ),
+              -1,
+              1,
+              0,
+              1
+            );
+
             const vector = center
               .toVector(rotatingPoint.point)
               .withMultipliedScalar(t);
             const point = center.withAddedVector(vector);
 
-            context.beginPath();
-            context.fillStyle = rotatingPoint.color.toHexString();
-            context.moveTo(point.x, point.y);
-            context.arc(point.x, point.y, 7, 0, 2 * Math.PI);
-            context.fill();
+            if (i === 0) {
+              context.beginPath();
+              const color = gradient.toHclInterpolatedColor(
+                Percent.givenFraction(c, 1)
+              );
+              context.strokeStyle = color.toHexString();
+              context.moveTo(point.x, point.y);
+              i += 1;
+            } else if (i < 3) {
+              context.lineTo(point.x, point.y);
+              i += 1;
+            } else {
+              context.closePath();
+              context.stroke();
+              i = 0;
+            }
+            // context.moveTo(point.x, point.y);
+            // context.arc(point.x, point.y, 7, 0, 2 * Math.PI);
           });
         },
       })

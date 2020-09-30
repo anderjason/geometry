@@ -3,12 +3,17 @@ import { ElementStyle } from "@anderjason/web";
 import { ManagedObject, ExclusiveInitializer } from "skytree";
 import { SegmentWithClippingBox } from "../../SegmentWithClippingBox";
 import { RotateAroundPoint } from "../../RotateAroundPoint";
+import { VectorRotation } from "../../VectorRotation";
 
-const exampleNames: string[] = ["segmentWithClippingBox", "rotateAroundPoint"];
+const exampleNames: string[] = [
+  "rotateAroundPoint",
+  "vectorRotation",
+  "segmentWithClippingBox",
+];
 
 export class Main extends ManagedObject<void> {
   onActivate() {
-    const currentExample = Observable.givenValue(exampleNames[1]);
+    const currentExample = Observable.givenValue(exampleNames[0]);
 
     const wrapper = this.addManagedObject(
       WrapperStyle.toManagedElement({
@@ -35,6 +40,10 @@ export class Main extends ManagedObject<void> {
               });
             case "rotateAroundPoint":
               return new RotateAroundPoint({
+                parentElement: content.element,
+              });
+            case "vectorRotation":
+              return new VectorRotation({
                 parentElement: content.element,
               });
 

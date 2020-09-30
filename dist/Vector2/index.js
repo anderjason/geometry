@@ -80,6 +80,16 @@ class Vector2 {
         const magnitude = this.toMagnitude() * other.toMagnitude();
         return Rotation_1.Rotation.givenRadians(Math.acos(dot / magnitude));
     }
+    toSignedAngle(other) {
+        let radians = Math.atan2(other.y, other.x) - Math.atan2(this.y, this.x);
+        if (radians > Math.PI) {
+            radians -= Math.PI * 2;
+        }
+        else if (radians < -Math.PI) {
+            radians += Math.PI * 2;
+        }
+        return Rotation_1.Rotation.givenRadians(radians);
+    }
     withNormalizedMagnitude() {
         return this.withDividedScalar(this.toMagnitude());
     }
