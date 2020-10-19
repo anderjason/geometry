@@ -1,6 +1,6 @@
 import { Color } from "@anderjason/color";
 import { Observable, ObservableBase } from "@anderjason/observable";
-import { ManagedObject } from "skytree";
+import { Actor } from "skytree";
 import { Box2, Segment2 } from "../../../src";
 import { ManagedCanvas } from "../_internal/ManagedCanvas";
 
@@ -12,7 +12,7 @@ export interface InnerLineProps {
   innerColor: Color;
 }
 
-export class InnerLine extends ManagedObject<InnerLineProps> {
+export class InnerLine extends Actor<InnerLineProps> {
   onActivate() {
     this.cancelOnDeactivate(
       this.props.segment.didChange.subscribe((segment) => {

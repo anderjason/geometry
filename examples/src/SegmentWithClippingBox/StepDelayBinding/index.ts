@@ -1,14 +1,12 @@
 import { Observable, ReadOnlyObservable } from "@anderjason/observable";
-import { ManagedObject } from "skytree";
+import { Actor } from "skytree";
 
 export interface StepDelayBindingProps<T> {
   input: Observable<T>;
   delaySteps: number;
 }
 
-export class StepDelayBinding<T> extends ManagedObject<
-  StepDelayBindingProps<T>
-> {
+export class StepDelayBinding<T> extends Actor<StepDelayBindingProps<T>> {
   private _output = Observable.ofEmpty<T>();
   readonly output = ReadOnlyObservable.givenObservable(this._output);
 

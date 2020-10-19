@@ -1,7 +1,6 @@
-import { ManagedObject } from "skytree";
+import { Actor, ConditionalActivator } from "skytree";
 import { Segment2 } from "../../../src/Segment2";
 import { ManagedCanvas } from "../_internal/ManagedCanvas";
-import { EveryFrame } from "../_internal/EveryFrame";
 import { NumberUtil, Percent } from "@anderjason/util";
 import { Box2 } from "../../../src/Box2";
 import { Size2 } from "../../../src/Size2";
@@ -9,19 +8,17 @@ import { Point2 } from "../../../src/Point2";
 import { InnerLine } from "./InnerLine";
 import { Observable } from "@anderjason/observable";
 import { ColorGradient, Color } from "@anderjason/color";
-import { StepDelayBinding } from "../_internal/StepDelayBinding";
+import { StepDelayBinding } from "./StepDelayBinding";
+import { EveryFrame } from "@anderjason/web";
 
-export interface SegmentWithClippingBoxProps {
-  parentElement: HTMLElement;
-}
+export class SegmentWithClippingBox extends Actor<void> {
+  readonly parentElement = Observable.ofEmpty<HTMLElement>();
+  readonly isVisible = Observable.ofEmpty<boolean>();
 
-export class SegmentWithClippingBox extends ManagedObject<
-  SegmentWithClippingBoxProps
-> {
   onActivate() {
-    const canvas = this.addManagedObject(
+    const canvas = this.addActor(
       new ManagedCanvas({
-        parentElement: this.props.parentElement,
+        parentElement: this.parentElement,
       })
     );
 
@@ -65,83 +62,87 @@ export class SegmentWithClippingBox extends ManagedObject<
       Color.givenHexString("#0099FF"),
     ]);
 
-    this.addManagedObject(
-      new EveryFrame({
-        callback: (frameNumber) => {
-          const { context } = canvas;
-          const { width, height } = canvas.size.value;
+    this.addActor(
+      new ConditionalActivator({
+        input: this.isVisible,
+        fn: (v) => v,
+        actor: new EveryFrame({
+          callback: (frameNumber) => {
+            const { context } = canvas;
+            const { width, height } = canvas.size.value;
 
-          const t = NumberUtil.numberWithRangeMap(
-            Math.sin(frameNumber / frameDuration),
-            -1,
-            1,
-            0.3,
-            0.7
-          );
+            const t = NumberUtil.numberWithRangeMap(
+              Math.sin(frameNumber / frameDuration),
+              -1,
+              1,
+              0.3,
+              0.7
+            );
 
-          box.setValue(
-            Box2.givenCenterSize(
-              Point2.givenXY(width / 2, height / 2),
-              Size2.givenWidthHeight(width * t, height * t)
-            )
-          );
+            box.setValue(
+              Box2.givenCenterSize(
+                Point2.givenXY(width / 2, height / 2),
+                Size2.givenWidthHeight(width * t, height * t)
+              )
+            );
 
-          let x1 = segment.value.startPoint.x;
-          let y1 = segment.value.startPoint.y;
-          let x2 = segment.value.endPoint.x;
-          let y2 = segment.value.endPoint.y;
+            let x1 = segment.value.startPoint.x;
+            let y1 = segment.value.startPoint.y;
+            let x2 = segment.value.endPoint.x;
+            let y2 = segment.value.endPoint.y;
 
-          x1 += vx1;
-          y1 += vy1;
-          x2 += vx2;
-          y2 += vy2;
+            x1 += vx1;
+            y1 += vy1;
+            x2 += vx2;
+            y2 += vy2;
 
-          if (x1 >= width || x1 < 0) {
-            x1 = NumberUtil.numberWithHardLimit(x1, 0, width);
-            vx1 *= -1;
-          }
+            if (x1 >= width || x1 < 0) {
+              x1 = NumberUtil.numberWithHardLimit(x1, 0, width);
+              vx1 *= -1;
+            }
 
-          if (x2 >= width || x2 < 0) {
-            x2 = NumberUtil.numberWithHardLimit(x2, 0, width);
-            vx2 *= -1;
-          }
+            if (x2 >= width || x2 < 0) {
+              x2 = NumberUtil.numberWithHardLimit(x2, 0, width);
+              vx2 *= -1;
+            }
 
-          if (y1 >= height || y1 < 0) {
-            y1 = NumberUtil.numberWithHardLimit(y1, 0, width);
-            vy1 *= -1;
-          }
+            if (y1 >= height || y1 < 0) {
+              y1 = NumberUtil.numberWithHardLimit(y1, 0, width);
+              vy1 *= -1;
+            }
 
-          if (y2 >= height || y2 < 0) {
-            y2 = NumberUtil.numberWithHardLimit(y2, 0, width);
-            vy2 *= -1;
-          }
+            if (y2 >= height || y2 < 0) {
+              y2 = NumberUtil.numberWithHardLimit(y2, 0, width);
+              vy2 *= -1;
+            }
 
-          segment.setValue(Segment2.givenXYPair(x1, y1, x2, y2));
+            segment.setValue(Segment2.givenXYPair(x1, y1, x2, y2));
 
-          context.clearRect(0, 0, width, height);
+            context.clearRect(0, 0, width, height);
 
-          context.beginPath();
-          context.strokeStyle = "#9966ff";
-          context.lineWidth = 2;
-          context.strokeRect(
-            box.value.toLeft(),
-            box.value.toTop(),
-            box.value.size.width,
-            box.value.size.height
-          );
-        },
+            context.beginPath();
+            context.strokeStyle = "#9966ff";
+            context.lineWidth = 2;
+            context.strokeRect(
+              box.value.toLeft(),
+              box.value.toTop(),
+              box.value.size.width,
+              box.value.size.height
+            );
+          },
+        }),
       })
     );
 
     for (let i = 0; i < 20; i++) {
-      const delayedSegment = this.addManagedObject(
+      const delayedSegment = this.addActor(
         new StepDelayBinding({
           input: segment,
           delaySteps: i * 7,
         })
       );
 
-      this.addManagedObject(
+      this.addActor(
         new InnerLine({
           box,
           segment: delayedSegment.output,

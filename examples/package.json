@@ -1,0 +1,30 @@
+{
+  "main": "./dist/index.js",
+  "author": "Jason Anderson",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js --open"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "@anderjason/color": "^2.0.0",
+    "@anderjason/example-tools": "git+https://github.com/anderjason/example-tools.git",
+    "@anderjason/geometry": "^3.0.0",
+    "@anderjason/observable": "^3.0.1",
+    "@anderjason/tests": "^1.0.1",
+    "@anderjason/util": "^2.0.3",
+    "@anderjason/web": "^4.2.1",
+    "skytree": "^9.1.1"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^4.5.0",
+    "ts-loader": "^8.0.5",
+    "typescript": "^4.0.3",
+    "webpack": "4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

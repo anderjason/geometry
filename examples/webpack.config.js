@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./examples/src/index.ts",
+  entry: "./src/index.ts",
   module: {
     rules: [
       {
@@ -12,7 +12,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   },
   devtool: "inline-source-map",
   devServer: {
@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./examples/src/index.html",
+      template: "./src/index.html",
     }),
   ],
 };

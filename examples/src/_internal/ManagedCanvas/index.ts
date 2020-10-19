@@ -1,31 +1,35 @@
-import { Size2 } from "../../../../src/Size2";
-import { ManagedObject } from "skytree";
+import { Size2 } from "@anderjason/geometry";
+import { Actor } from "skytree";
 import { ManagedElement, ScreenSize } from "@anderjason/web";
 import { Observable, ReadOnlyObservable } from "@anderjason/observable";
 
 export interface ManagedCanvasProps {
-  parentElement: HTMLElement;
+  parentElement: Observable<HTMLElement>;
 }
 
-export class ManagedCanvas extends ManagedObject<ManagedCanvasProps> {
+export class ManagedCanvas extends Actor<ManagedCanvasProps> {
   private _size = Observable.ofEmpty<Size2>(Size2.isEqual);
   readonly size = ReadOnlyObservable.givenObservable(this._size);
 
+  private _canvas: ManagedElement<HTMLCanvasElement>;
   private _context: CanvasRenderingContext2D;
 
   get context(): CanvasRenderingContext2D {
     return this._context;
   }
 
+  get element(): HTMLCanvasElement {
+    return this._canvas.element;
+  }
+
   onActivate() {
-    const canvas = this.addManagedObject(
+    this._canvas = this.addActor(
       ManagedElement.givenDefinition({
         tagName: "canvas",
         parentElement: this.props.parentElement,
       })
     );
-
-    this._context = canvas.element.getContext("2d")!;
+    this._context = this._canvas.element.getContext("2d")!;
 
     const devicePixelRatio = window.devicePixelRatio || 1;
 
@@ -35,16 +39,20 @@ export class ManagedCanvas extends ManagedObject<ManagedCanvasProps> {
           return;
         }
 
-        const bounds = this.props.parentElement.getBoundingClientRect();
+        if (this.props.parentElement.value == null) {
+          return;
+        }
+
+        const bounds = this.props.parentElement.value.getBoundingClientRect();
         const newSize = Size2.givenWidthHeight(
           bounds.width * devicePixelRatio,
           bounds.height * devicePixelRatio
         );
 
-        canvas.element.width = newSize.width;
-        canvas.element.height = newSize.height;
-        canvas.style.width = `${bounds.width}px`;
-        canvas.style.height = `${bounds.height}px`;
+        this._canvas.element.width = newSize.width;
+        this._canvas.element.height = newSize.height;
+        this._canvas.style.width = `${bounds.width}px`;
+        this._canvas.style.height = `${bounds.height}px`;
 
         this._size.setValue(newSize);
       }, true)

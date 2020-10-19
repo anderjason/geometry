@@ -1,6 +1,6 @@
 {
   "name": "@anderjason/geometry",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "",
   "main": "./dist/index.js",
   "repository": {
@@ -20,20 +20,11 @@
     "dist/**/*"
   ],
   "dependencies": {
-    "@anderjason/tests": "^1.0.0",
-    "@anderjason/util": "^1.0.0"
+    "@anderjason/tests": "^1.0.1",
+    "@anderjason/util": "^2.0.3"
   },
   "devDependencies": {
-    "@anderjason/color": "^1.0.0",
-    "@anderjason/observable": "^2.0.0",
-    "@anderjason/web": "^2.0.0",
-    "html-webpack-plugin": "^4.5.0",
-    "skytree": "^8.1.0",
-    "ts-loader": "^8.0.4",
-    "typescript": "^4.0.3",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "typescript": "^4.0.3"
   },
   "bugs": {
     "url": "https://github.com/anderjason/geometry/issues"
