@@ -13,7 +13,7 @@ export declare class Point2 {
     get isZero(): boolean;
     isEqual(other: Point2): boolean;
     toDistance(other: Point2): number;
-    toVector(other: Point2): Vector2;
+    toVector(other?: Point2): Vector2;
     withAddedVector(vector: Vector2): Point2;
     withSubtractedVector(vector: Vector2): Point2;
     withRotationAroundPoint(center: Point2, rotation: Rotation): Point2;

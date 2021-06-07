@@ -144,3 +144,34 @@ Test.define(
     });
   }
 );
+
+Test.define("Box2 can be created from opposite corners", () => {
+  const box1 = Box2.givenOppositeCorners(
+    Point2.givenXY(50, 51), // leftTop
+    Point2.givenXY(100, 101) // rightBottom
+  );
+
+  const box2 = Box2.givenOppositeCorners(
+    Point2.givenXY(100, 51), // rightTop
+    Point2.givenXY(50, 101) // leftBottom
+  );
+
+  const box3 = Box2.givenOppositeCorners(
+    Point2.givenXY(100, 101), // rightBottom
+    Point2.givenXY(50, 51) // leftTop
+  );
+
+  const box4 = Box2.givenOppositeCorners(
+    Point2.givenXY(50, 101), // leftBottom
+    Point2.givenXY(100, 51) // rightTop
+  );
+
+  const boxes = [box1, box2, box3, box4];
+
+  boxes.forEach((box) => {
+    Test.assert(box.toLeft() === 50);
+    Test.assert(box.toTop() === 51);
+    Test.assert(box.toRight() === 100);
+    Test.assert(box.toBottom() === 101);
+  });
+});

@@ -3,6 +3,8 @@ import { Point2 } from "../Point2";
 import { Rotation } from "../Rotation";
 export declare type RotationDirection = "clockwise" | "counterclockwise";
 export declare class Vector2 {
+    private static _zero;
+    static ofZero(): Vector2;
     static givenXY(x: number, y: number): Vector2;
     static givenPoint(point: Point2): Vector2;
     static givenPoints(startPoint: Point2, endPoint: Point2): Vector2;

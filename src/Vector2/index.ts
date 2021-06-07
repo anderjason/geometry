@@ -5,6 +5,12 @@ import { Rotation } from "../Rotation";
 export type RotationDirection = "clockwise" | "counterclockwise";
 
 export class Vector2 {
+  private static _zero = new Vector2(0, 0);
+
+  static ofZero(): Vector2 {
+    return this._zero;
+  }
+
   static givenXY(x: number, y: number): Vector2 {
     return new Vector2(x, y);
   }

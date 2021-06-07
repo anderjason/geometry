@@ -43,3 +43,22 @@ Test.define("Size2 can be adjusted to fit a zero size bounding box", () => {
 
   Test.assert(actual.isEqual(expected));
 });
+
+Test.define("Size2 can be scaled to cover", () => {
+  const original = Size2.givenWidthHeight(100, 200);
+  const bounds = Size2.givenWidthHeight(500, 500);
+
+  const actual = original.toScaledSize(bounds, "flexible", "cover").size;
+  const expected = Size2.givenWidthHeight(500, 1000);
+
+  Test.assert(actual.isEqual(expected));
+});
+
+Test.define("Size2 can be multiplied by a scale", () => {
+  const original = Size2.givenWidthHeight(100, 200);
+  
+  const actual = original.withScale(2);
+  const expected = Size2.givenWidthHeight(200, 400);
+
+  Test.assert(actual.isEqual(expected));
+});

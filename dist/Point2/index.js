@@ -44,7 +44,12 @@ class Point2 {
         return this.toVector(other).toMagnitude();
     }
     toVector(other) {
-        return Vector2_1.Vector2.givenXY(other.x - this.x, other.y - this.y);
+        if (other != null) {
+            return Vector2_1.Vector2.givenXY(other.x - this.x, other.y - this.y);
+        }
+        else {
+            return Vector2_1.Vector2.givenXY(this.x, this.y);
+        }
     }
     withAddedVector(vector) {
         return new Point2(this.x + vector.x, this.y + vector.y);

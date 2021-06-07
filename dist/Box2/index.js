@@ -102,8 +102,8 @@ class Box2 {
     toRightBottom() {
         return Point2_1.Point2.givenXY(this.toRight(), this.toBottom());
     }
-    toScaledBox(boundingBox, scaleMode, anchor) {
-        const { size, scale } = this._size.toScaledSize(boundingBox._size, scaleMode);
+    toScaledBox(boundingBox, scaleMode, anchor, scaleFit = "contain") {
+        const { size, scale } = this._size.toScaledSize(boundingBox._size, scaleMode, scaleFit);
         let centerX;
         switch (anchor) {
             case "leftTop":

@@ -17,6 +17,9 @@ class Vector2 {
         this._x = x;
         this._y = y;
     }
+    static ofZero() {
+        return this._zero;
+    }
     static givenXY(x, y) {
         return new Vector2(x, y);
     }
@@ -123,4 +126,5 @@ class Vector2 {
     }
 }
 exports.Vector2 = Vector2;
+Vector2._zero = new Vector2(0, 0);
 //# sourceMappingURL=index.js.map

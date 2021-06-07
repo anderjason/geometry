@@ -1,16 +1,14 @@
 import { Size2 } from "@anderjason/geometry";
 import { Actor } from "skytree";
-import { ManagedElement, ScreenSize } from "@anderjason/web";
-import { Observable, ReadOnlyObservable } from "@anderjason/observable";
+import { ManagedElement } from "@anderjason/web";
+import { Observable, ObservableBase } from "@anderjason/observable";
 
 export interface ManagedCanvasProps {
   parentElement: Observable<HTMLElement>;
+  size: ObservableBase<Size2>;
 }
 
 export class ManagedCanvas extends Actor<ManagedCanvasProps> {
-  private _size = Observable.ofEmpty<Size2>(Size2.isEqual);
-  readonly size = ReadOnlyObservable.givenObservable(this._size);
-
   private _canvas: ManagedElement<HTMLCanvasElement>;
   private _context: CanvasRenderingContext2D;
 
@@ -34,7 +32,7 @@ export class ManagedCanvas extends Actor<ManagedCanvasProps> {
     const devicePixelRatio = window.devicePixelRatio || 1;
 
     this.cancelOnDeactivate(
-      ScreenSize.instance.availableSize.didChange.subscribe((size) => {
+      this.props.size.didChange.subscribe((size) => {
         if (size == null) {
           return;
         }
@@ -43,18 +41,15 @@ export class ManagedCanvas extends Actor<ManagedCanvasProps> {
           return;
         }
 
-        const bounds = this.props.parentElement.value.getBoundingClientRect();
         const newSize = Size2.givenWidthHeight(
-          bounds.width * devicePixelRatio,
-          bounds.height * devicePixelRatio
+          size.width * devicePixelRatio,
+          size.height * devicePixelRatio
         );
 
         this._canvas.element.width = newSize.width;
         this._canvas.element.height = newSize.height;
-        this._canvas.style.width = `${bounds.width}px`;
-        this._canvas.style.height = `${bounds.height}px`;
-
-        this._size.setValue(newSize);
+        this._canvas.style.width = `${size.width}px`;
+        this._canvas.style.height = `${size.height}px`;
       }, true)
     );
   }

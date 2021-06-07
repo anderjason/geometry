@@ -1,5 +1,5 @@
 import { Point2 } from "../Point2";
-import { Size2, ScaleMode } from "../Size2";
+import { Size2, ScaleMode, ScaleFit } from "../Size2";
 
 export type Anchor2 =
   | "leftTop"
@@ -172,11 +172,13 @@ export class Box2 {
   toScaledBox(
     boundingBox: Box2,
     scaleMode: ScaleMode,
-    anchor: Anchor2
+    anchor: Anchor2,
+    scaleFit: ScaleFit = "contain"
   ): ScaledBox2 {
     const { size, scale } = this._size.toScaledSize(
       boundingBox._size,
-      scaleMode
+      scaleMode,
+      scaleFit
     );
 
     let centerX: number;

@@ -1,5 +1,5 @@
 import { Point2 } from "../Point2";
-import { Size2, ScaleMode } from "../Size2";
+import { Size2, ScaleMode, ScaleFit } from "../Size2";
 export declare type Anchor2 = "leftTop" | "centerTop" | "rightTop" | "leftCenter" | "center" | "rightCenter" | "leftBottom" | "centerBottom" | "rightBottom";
 export interface ScaledBox2 {
     box: Box2;
@@ -31,6 +31,6 @@ export declare class Box2 {
     toLeftBottom(): Point2;
     toCenterBottom(): Point2;
     toRightBottom(): Point2;
-    toScaledBox(boundingBox: Box2, scaleMode: ScaleMode, anchor: Anchor2): ScaledBox2;
+    toScaledBox(boundingBox: Box2, scaleMode: ScaleMode, anchor: Anchor2, scaleFit?: ScaleFit): ScaledBox2;
     withAddedSize(size: Size2, anchor: Anchor2): Box2;
 }

@@ -1,4 +1,5 @@
 export type ScaleMode = "flexible" | "expand" | "shrink";
+export type ScaleFit = "cover" | "contain";
 
 export interface ScaledSize2 {
   size: Size2;
@@ -68,7 +69,7 @@ export class Size2 {
     return other._width == this._width && other._height == this._height;
   }
 
-  toScale(availableSize: Size2, scaleMode: ScaleMode): number {
+  toScale(availableSize: Size2, scaleMode: ScaleMode, scaleFit: ScaleFit = "contain"): number {
     if (availableSize == null) {
       throw new Error("availableSize is required");
     }
@@ -79,7 +80,18 @@ export class Size2 {
 
     const scaleX = availableSize.width / this._width;
     const scaleY = availableSize.height / this._height;
-    const scale = Math.min(scaleX, scaleY);
+    
+    let scale: number;
+    switch (scaleFit) {
+      case "contain":
+        scale = Math.min(scaleX, scaleY);
+        break;
+      case "cover":
+        scale = Math.max(scaleX, scaleY);
+        break;
+      default:
+        throw new Error(`Unsupported scaleFit (expected "cover" or "contain" but got '${scaleFit}')`);
+    }
 
     if (scale < 1 && scaleMode === "expand") {
       // would shrink, but only expanding is allowed
@@ -94,8 +106,8 @@ export class Size2 {
     return scale;
   }
 
-  toScaledSize(availableSize: Size2, scaleMode: ScaleMode): ScaledSize2 {
-    const scale = this.toScale(availableSize, scaleMode);
+  toScaledSize(availableSize: Size2, scaleMode: ScaleMode, scaleFit: ScaleFit = "contain"): ScaledSize2 {
+    const scale = this.toScale(availableSize, scaleMode, scaleFit);
 
     return {
       size: Size2.givenWidthHeight(this._width * scale, this._height * scale),
@@ -114,6 +126,13 @@ export class Size2 {
     return Size2.givenWidthHeight(
       this._width - other.width,
       this._height - other.height
+    );
+  }
+
+  withScale(scale: number): Size2 {
+    return Size2.givenWidthHeight(
+      this._width * scale,
+      this._height * scale
     );
   }
 }

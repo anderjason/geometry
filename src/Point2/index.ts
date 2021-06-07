@@ -60,8 +60,12 @@ export class Point2 {
     return this.toVector(other).toMagnitude();
   }
 
-  toVector(other: Point2): Vector2 {
-    return Vector2.givenXY(other.x - this.x, other.y - this.y);
+  toVector(other?: Point2): Vector2 {
+    if (other != null) {
+      return Vector2.givenXY(other.x - this.x, other.y - this.y);
+    } else {
+      return Vector2.givenXY(this.x, this.y);
+    }
   }
 
   withAddedVector(vector: Vector2): Point2 {
