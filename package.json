@@ -1,6 +1,6 @@
 {
   "name": "@anderjason/geometry",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "",
   "main": "./dist/index.js",
   "repository": {
@@ -14,17 +14,27 @@
     "build": "npm run clean && tsc",
     "clean": "rm -rf dist && rm -rf test",
     "test": "tsc -p tsconfig.test.json && node test/index.test && rm -rf test",
-    "examples": "webpack-dev-server --config examples/webpack.config.js --open"
+    "build:examples": "webpack --config=examples/webpack/dist.js",
+    "examples": "webpack serve --config=examples/webpack/dev.js"
   },
   "files": [
     "dist/**/*"
   ],
   "dependencies": {
     "@anderjason/tests": "^1.0.1",
-    "@anderjason/util": "^2.0.3"
+    "@anderjason/util": "^2.2.0"
   },
   "devDependencies": {
-    "typescript": "^4.0.3"
+    "@anderjason/example-tools": "git+https://github.com/anderjason/example-tools.git",
+    "@anderjason/web": "^8.0.0",
+    "@types/fontfaceobserver": "2.1.0",
+    "@webpack-cli/serve": "^1.5.1",
+    "html-webpack-plugin": "^5.3.2",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "5.45.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
   },
   "bugs": {
     "url": "https://github.com/anderjason/geometry/issues"

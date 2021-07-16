@@ -8,6 +8,7 @@ export declare class Vector2 {
     static givenXY(x: number, y: number): Vector2;
     static givenPoint(point: Point2): Vector2;
     static givenPoints(startPoint: Point2, endPoint: Point2): Vector2;
+    static givenMagnitudeAndRotation(magnitude: number, rotation: Rotation): Vector2;
     static isEqual(a: Vector2, b: Vector2): boolean;
     private _x;
     private _y;

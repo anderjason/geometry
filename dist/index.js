@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Vector2 = exports.Size2 = exports.Rotation = exports.Polygon2 = exports.Point2 = exports.Segment2 = exports.Line2 = exports.Box2 = void 0;
+exports.Vector2 = exports.Size2 = exports.Rotation = exports.Ray2 = exports.Polygon2 = exports.Point2 = exports.Segment2 = exports.Line2 = exports.Box2 = void 0;
 const Box2_1 = require("./Box2");
 Object.defineProperty(exports, "Box2", { enumerable: true, get: function () { return Box2_1.Box2; } });
 const Line2_1 = require("./Line2");
@@ -9,6 +9,8 @@ const Point2_1 = require("./Point2");
 Object.defineProperty(exports, "Point2", { enumerable: true, get: function () { return Point2_1.Point2; } });
 const Polygon2_1 = require("./Polygon2");
 Object.defineProperty(exports, "Polygon2", { enumerable: true, get: function () { return Polygon2_1.Polygon2; } });
+const Ray2_1 = require("./Ray2");
+Object.defineProperty(exports, "Ray2", { enumerable: true, get: function () { return Ray2_1.Ray2; } });
 const Rotation_1 = require("./Rotation");
 Object.defineProperty(exports, "Rotation", { enumerable: true, get: function () { return Rotation_1.Rotation; } });
 const Segment2_1 = require("./Segment2");

@@ -1,11 +1,9 @@
-import { ColorGradient, Color } from "@anderjason/color";
-import { Observable } from "@anderjason/observable";
+import { Color, ColorGradient } from "@anderjason/color";
+import { DemoActor } from "@anderjason/example-tools";
 import { NumberUtil, Percent } from "@anderjason/util";
-import { EveryFrame } from "@anderjason/web";
-import { Actor, ConditionalActivator } from "skytree";
+import { ElementSizeWatcher, ManagedCanvas } from "@anderjason/web";
 import { Point2 } from "../../../src/Point2";
 import { Rotation } from "../../../src/Rotation";
-import { ManagedCanvas } from "../_internal/ManagedCanvas";
 
 export interface RotateAroundPointDemoProps {}
 
@@ -16,21 +14,20 @@ interface RotatingPoint {
   pulse: number;
 }
 
-export class RotateAroundPointDemo extends Actor<RotateAroundPointDemoProps> {
-  readonly parentElement = Observable.ofEmpty<HTMLElement>();
-  readonly isVisible = Observable.ofEmpty<boolean>();
-
+export class RotateAroundPointDemo extends DemoActor<RotateAroundPointDemoProps> {
   onActivate() {
-    const canvas = this.addActor(
-      new ManagedCanvas({
-        parentElement: this.parentElement,
+    const parentSize = this.addActor(
+      new ElementSizeWatcher({
+        element: this.parentElement,
       })
     );
 
-    this.cancelOnDeactivate(
-      this.parentElement.didChange.subscribe((pe) => {
-        console.log(pe);
-      }, true)
+    const canvas = this.addActor(
+      new ManagedCanvas({
+        parentElement: this.parentElement,
+        displaySize: parentSize.output,
+        renderEveryFrame: true,
+      })
     );
 
     const gradient = ColorGradient.givenSteps([
@@ -42,7 +39,7 @@ export class RotateAroundPointDemo extends Actor<RotateAroundPointDemoProps> {
     let center: Point2;
 
     this.cancelOnDeactivate(
-      canvas.size.didChange.subscribe((size) => {
+      canvas.pixelSize.didChange.subscribe((size) => {
         if (size == null) {
           return;
         }
@@ -78,62 +75,59 @@ export class RotateAroundPointDemo extends Actor<RotateAroundPointDemoProps> {
     );
 
     const frameDuration = 42;
+    let frameNumber = 0;
 
-    this.addActor(
-      new ConditionalActivator({
-        input: this.isVisible,
-        fn: (v) => v,
-        actor: new EveryFrame({
-          callback: (frameNumber) => {
-            console.log("render");
-            const { context } = canvas;
-            if (canvas.size.value == null) {
-              return;
-            }
+    this.cancelOnDeactivate(
+      canvas.addRenderer(0, (renderProps) => {
+        const { context, pixelSize } = renderProps;
 
-            const { width, height } = canvas.size.value;
+        if (pixelSize == null) {
+          return;
+        }
 
-            context.beginPath();
-            context.fillStyle = "#17161E";
-            context.fillRect(0, 0, width, height);
+        frameNumber += 1;
 
-            context.beginPath();
-            context.fillStyle = "#FFFFFF";
-            context.moveTo(center.x, center.y);
-            context.arc(center.x, center.y, 10, 0, 2 * Math.PI);
-            context.fill();
+        const { width, height } = pixelSize;
 
-            let i = 0;
+        context.beginPath();
+        context.fillStyle = "#17161E";
+        context.fillRect(0, 0, width, height);
 
-            points.forEach((rotatingPoint, idx) => {
-              rotatingPoint.point = rotatingPoint.point.withRotationAroundPoint(
-                center,
-                Rotation.givenDegrees(rotatingPoint.degreesPerFrame)
-              );
+        context.beginPath();
+        context.fillStyle = "#FFFFFF";
+        context.moveTo(center.x, center.y);
+        context.arc(center.x, center.y, 10, 0, 2 * Math.PI);
+        context.fill();
 
-              const c = NumberUtil.numberWithRangeMap(
-                Math.sin((frameNumber + rotatingPoint.pulse) / frameDuration),
-                -1,
-                1,
-                0,
-                1
-              );
+        let i = 0;
 
-              const vector = center.toVector(rotatingPoint.point);
+        points.forEach((rotatingPoint, idx) => {
+          rotatingPoint.point = rotatingPoint.point.withRotationAroundPoint(
+            center,
+            Rotation.givenDegrees(rotatingPoint.degreesPerFrame)
+          );
 
-              const point = center.withAddedVector(vector);
+          const c = NumberUtil.numberWithRangeMap(
+            Math.sin((frameNumber + rotatingPoint.pulse) / frameDuration),
+            -1,
+            1,
+            0,
+            1
+          );
 
-              context.beginPath();
-              const color = gradient.toHclInterpolatedColor(
-                Percent.givenFraction(c, 1)
-              );
-              context.fillStyle = color.toHexString();
-              context.moveTo(point.x, point.y);
-              context.arc(point.x, point.y, 7, 0, 2 * Math.PI);
-              context.fill();
-            });
-          },
-        }),
+          const vector = center.toVector(rotatingPoint.point);
+
+          const point = center.withAddedVector(vector);
+
+          context.beginPath();
+          const color = gradient.toHclInterpolatedColor(
+            Percent.givenFraction(c, 1)
+          );
+          context.fillStyle = color.toHexString();
+          context.moveTo(point.x, point.y);
+          context.arc(point.x, point.y, 7, 0, 2 * Math.PI);
+          context.fill();
+        });
       })
     );
   }

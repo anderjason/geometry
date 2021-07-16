@@ -23,6 +23,17 @@ export class Vector2 {
     return startPoint.toVector(endPoint);
   }
 
+  static givenMagnitudeAndRotation(
+    magnitude: number,
+    rotation: Rotation
+  ): Vector2 {
+    const radians = rotation.radians;
+    const x = magnitude * Math.cos(radians);
+    const y = magnitude * Math.sin(radians);
+
+    return new Vector2(x, y);
+  }
+
   static isEqual(a: Vector2, b: Vector2): boolean {
     if (a == null && b == null) {
       return true;

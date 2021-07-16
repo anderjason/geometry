@@ -1,8 +1,8 @@
 import { Color } from "@anderjason/color";
 import { Observable, ObservableBase } from "@anderjason/observable";
+import { ManagedCanvas } from "@anderjason/web";
 import { Actor } from "skytree";
 import { Box2, Segment2 } from "../../../src";
-import { ManagedCanvas } from "../_internal/ManagedCanvas";
 
 export interface InnerLineProps {
   canvas: ManagedCanvas;
