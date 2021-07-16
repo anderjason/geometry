@@ -5,8 +5,13 @@ import { VectorRotation } from "./VectorRotation";
 import { ExampleDefinition, ExamplesHome } from "@anderjason/example-tools";
 import { RayWithClippingBoxDemo } from "./RayWithClippingBoxDemo";
 import { RayWithDistanceToBoxDemo } from "./RayWithDistanceToBoxDemo";
+import { FieldOfViewDemo } from "./FieldOfViewDemo";
 
 const definitions = ObservableArray.givenValues<ExampleDefinition>([
+  {
+    title: "Field of view",
+    actor: new FieldOfViewDemo(),
+  },
   {
     title: "Ray with distance to nearest box",
     actor: new RayWithDistanceToBoxDemo(),
